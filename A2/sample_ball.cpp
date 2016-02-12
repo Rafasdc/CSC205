@@ -1,9 +1,5 @@
 /* sample_ball.cpp
-
-   A sample program consisting of an animated ball which bounces off of the edges of the screen.
-
-
-   B. Bird - 01/17/2016
+Assignment 2 CSC205
 */
 #include <iostream>
 #include <vector>
@@ -176,6 +172,9 @@ private:
 			//Mirror the direction around the x axis (since the ball bounces)
 			ball_direction.y = -ball_direction.y;
 			new_position.y -= 2*offset_y;
+		}else if ((new_position.x >= 400 - BALL_RADIUS  && new_position.x <= 500- BALL_RADIUS) && (new_position.y >= 300- BALL_RADIUS && new_position.y <= 400 - BALL_RADIUS) ) {
+			ball_direction.x = -ball_direction.x;
+			ball_direction.y = -ball_direction.y;
 		}
 		ball_position = new_position;
 
@@ -186,13 +185,13 @@ private:
 		const ColourRGB& ball_colour = BALL_COLOURS[ball_colour_idx];
 		filledCircleRGBA(renderer,ball_position.x,ball_position.y,BALL_RADIUS,ball_colour.r,ball_colour.g,ball_colour.b,255);
 		boxRGBA(renderer, box_position1.x,box_position1.y,box_position2.x,box_position2.y,255,0,0,255);
+		boxRGBA(renderer, 400,300,500,400,145,173,78,255);
 		SDL_RenderPresent(renderer);
 	}
 	Vector2d ball_position,ball_direction;	
 	int ball_colour_idx;
 	Vector2d box_position1;
 	Vector2d box_position2;
-	int counter;
 };
 
 int main(){
