@@ -172,9 +172,11 @@ private:
 			//Mirror the direction around the x axis (since the ball bounces)
 			ball_direction.y = -ball_direction.y;
 			new_position.y -= 2*offset_y;
-		}else if ((new_position.x >= 400 - BALL_RADIUS  && new_position.x <= 500- BALL_RADIUS) && (new_position.y >= 300- BALL_RADIUS && new_position.y <= 400 - BALL_RADIUS) ) {
-			ball_direction.x = -ball_direction.x;
-			ball_direction.y = -ball_direction.y;
+		}else if ((new_position.x >= 400 - BALL_RADIUS  && new_position.x <= 500 + BALL_RADIUS)) {
+			if (new_position.y >= 300- BALL_RADIUS && new_position.y <= 400 + BALL_RADIUS){
+				ball_direction.x = -ball_direction.x;
+				ball_direction.y = -ball_direction.y;
+			}
 		}
 		ball_position = new_position;
 
