@@ -9,6 +9,7 @@ Assignment 2 CSC205
 
 #include "vector2d.h"
 #include "colourRGB.h"
+#include "level1.h"
 
 using namespace std;
 
@@ -206,13 +207,13 @@ int main(){
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0/*SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED*/);
 
 	//Initialize the canvas to solid green
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 	
-	A2Canvas canvas;
+	A2Canvas2 canvas;
 
-	canvas.frame_loop(renderer);
+	canvas.frame_loop2(renderer);
 	//printf("first renderer finished");
 	//canvas.frame_loop2(renderer);
 	
