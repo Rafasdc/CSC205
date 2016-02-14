@@ -52,15 +52,75 @@ public:
 		}
 	}
 
-	bool ball_intersection(Vector2d new_position, int BALL_RADIUS){
+	bool ball_intersection(Vector2d  * new_position, int BALL_RADIUS, Vector2d * ball_direction, int CANVAS_SIZE_Y, int CANVAS_SIZE_X){
 		if (hit){
 			return false;
 		}
+
+		/*
 		if ((new_position.x >= x1 - BALL_RADIUS  && new_position.x <= x2 + BALL_RADIUS)) {
-			if (new_position.y >= y1- BALL_RADIUS && new_position.y <= y2 + BALL_RADIUS){
+			if (new_position.y >= y1 - BALL_RADIUS && new_position.y <= y2 + BALL_RADIUS){
+				ball_direction->y = -ball_direction->y;
+				//ball_direction->x = ball_direction->x;
 				return true;
 			}
 		}
+		*/
+
+		/*
+		 * use or in both new_position to change x direciton and on both
+		 * y to change y direction, insted of having one big if in each statement have a big one before.
+		 *
+		 */
+
+		if (new_position->x >= x1 - BALL_RADIUS){
+			//Collide with left edge
+			//Determine how far past the collision point the new position is.
+			//float offset_x = x1-BALL_RADIUS-new_position->x;
+			//Mirror the direction around the y axis (since the ball bounces)
+			if ((new_position->x >= x1 - BALL_RADIUS  && new_position->x <= x2 + BALL_RADIUS)) {
+				if (new_position->y >= y1 - BALL_RADIUS && new_position->y <= y2 + BALL_RADIUS){
+					ball_direction->x = -ball_direction->x;
+				}
+			}
+			//new_position->x += 2*offset_x;
+		}else if(new_position->x <= x2 + BALL_RADIUS){
+			//Collide with right edge
+			//Determine how far past the collision point the new position is.
+			//float offset_x = new_position->x - ((CANVAS_SIZE_X-(CANVAS_SIZE_X-x2))-BALL_RADIUS);
+			//Mirror the direction around the y axis (since the ball bounces)
+			if ((new_position->x >= x1 - BALL_RADIUS  && new_position->x <= x2 + BALL_RADIUS)) {
+				if (new_position->y >= y1 - BALL_RADIUS && new_position->y <= y2 + BALL_RADIUS){
+					ball_direction->x = -ball_direction->x;
+				}
+			}
+			//new_position->x -= 2*offset_x;
+		}else if(new_position->y >= y1 - BALL_RADIUS && new_position->y <= y2+BALL_RADIUS){
+			//Collide with top
+			//Determine how far past the collision point the new position is.
+			//float offset_y = (y1-BALL_RADIUS)-new_position->y;
+			//Mirror the direction around the x axis (since the ball bounces)
+			if ((new_position->x >= x1 - BALL_RADIUS  && new_position->x <= x2 + BALL_RADIUS)) {
+				if (new_position->y >= y1 - BALL_RADIUS && new_position->y <= y2 + BALL_RADIUS){
+					ball_direction->y = -ball_direction->y;
+				}
+			}
+			//new_position->y += 2*offset_y;
+		}/*
+		else if(new_position->y <= y2+BALL_RADIUS){
+			//Collide with bottom
+			//Determine how far past the collision point the new position is.
+			//float offset_y = new_position->y - (y2+BALL_RADIUS);
+			//Mirror the direction around the x axis (since the ball bounces)
+			if ((new_position->x >= x1 - BALL_RADIUS  && new_position->x <= x2 + BALL_RADIUS)) {
+				if (new_position->y >= y1 - BALL_RADIUS && new_position->y <= y2 + BALL_RADIUS){
+					ball_direction->y = -ball_direction->y;
+				}
+			}
+			//new_position->y -= 2*offset_y;
+		}
+		*/
+
 		return false;
 	}
 
