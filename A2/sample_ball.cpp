@@ -16,7 +16,7 @@ using namespace std;
 static const int WINDOW_SIZE_X = 800;
 static const int WINDOW_SIZE_Y = 600;
 
-
+/*
 static const ColourRGB BALL_COLOURS[] = {
 	ColourRGB(0,0,0),
 	ColourRGB(255,0,0),
@@ -26,16 +26,18 @@ static const ColourRGB BALL_COLOURS[] = {
 	ColourRGB(255,0,255),
 	ColourRGB(255,255,0)
 };
+*/
 
 class A2Canvas{
 public:
+	/*
 	static const int CANVAS_SIZE_X = 800;
 	static const int CANVAS_SIZE_Y = 600;
 	static const int BALL_RADIUS = 15;
 	static const float BALL_VELOCITY = 150; //Pixels/second
 
 	static const int NUM_COLOURS = 7;
-	
+
 	A2Canvas(){
 		ball_position.x = CANVAS_SIZE_X/2;
 		ball_position.y = CANVAS_SIZE_Y/2;
@@ -195,6 +197,7 @@ private:
 	int ball_colour_idx;
 	Vector2d box_position1;
 	Vector2d box_position2;
+	*/
 };
 
 int main(){
