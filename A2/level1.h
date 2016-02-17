@@ -24,7 +24,8 @@ static const ColourRGB BALL_COLOURS[] = {
 
 //C
 //top to bottom
-Box brick1(100,200,100,125,145,173,78,255);
+Box brick1(100,300,100,350,145,173,78,255);
+//Box brick1(100,200,100,125,145,173,78,255);
 Box brick2(100,125,130,205,145,173,78,255);
 Box brick3(100,125,210,285,145,173,78,255);
 Box brick4(100,200,290,315,145,173,78,255);
@@ -205,7 +206,7 @@ private:
 				//check intersection of each box with the balls
 
 				//for (int k = 0; k < ObjectList.size(); k++){
-					if (ObjectList[0]->ball_intersection(&new_position,BALL_RADIUS,&ball_direction,CANVAS_SIZE_Y,CANVAS_SIZE_X)){
+					if (ObjectList[0]->ball_intersection(&new_position,&ball_position,BALL_RADIUS,&ball_direction,CANVAS_SIZE_Y,CANVAS_SIZE_X)){
 						//ball_direction.y = -ball_direction.y;
 						//ball_direction.x = -ball_direction.x;
 						//ObjectList[k]->setHit();
