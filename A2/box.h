@@ -77,25 +77,29 @@ public:
 			if (new_position->y >= y1 - radius && new_position->y <= y2 + radius){
 				ball_direction->x = -ball_direction->x;
 				printf("left edge\n");
+				hit = true;
 			}
 		} else if (current_position->x >= x2-radius && new_position->x <= x2+radius){
 
 			if (new_position->y >= y1 - radius && new_position->y <= y2 + radius){
 				printf("right edge\n");
 				ball_direction->x = -ball_direction->x;
+				hit = true;
 			}
 		} else if (current_position->y >= y2 - radius && new_position->y <= y2+radius){
 			if ((new_position->x >= x1 - radius  && new_position->x <= x2 + radius)) {
 				printf("bottom\n");
 				ball_direction->y = -ball_direction->y;
+				hit = true;
 			}
 		} else if (current_position->y <= y1 + radius && new_position->y >= y1-radius){
 			if ((new_position->x >= x1 - radius  && new_position->x <= x2 + radius)) {
 				printf("top\n");
 				ball_direction->y = -ball_direction->y;
+				hit = true;
 			}
 		}
-		return false;
+		return hit;
 	}
 
 

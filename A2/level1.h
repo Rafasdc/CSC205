@@ -24,8 +24,8 @@ static const ColourRGB BALL_COLOURS[] = {
 
 //C
 //top to bottom
-Box brick1(100,300,100,350,145,173,78,255);
-//Box brick1(100,200,100,125,145,173,78,255);
+//Box brick1(100,300,100,350,145,173,78,255);
+Box brick1(100,200,100,125,145,173,78,255);
 Box brick2(100,125,130,205,145,173,78,255);
 Box brick3(100,125,210,285,145,173,78,255);
 Box brick4(100,200,290,315,145,173,78,255);
@@ -67,7 +67,7 @@ public:
 		ball_colour_idx = 0;
 		start = false;
 		ObjectList.push_back(&brick1);
-		/*
+
 		ObjectList.push_back(&brick2);
 		ObjectList.push_back(&brick3);
 		ObjectList.push_back(&brick4);
@@ -80,7 +80,7 @@ public:
 		ObjectList.push_back(&brick11);
 		ObjectList.push_back(&brick12);
 		ObjectList.push_back(&brick13);
-		*/
+
 
 
 	}
@@ -205,13 +205,13 @@ private:
 
 				//check intersection of each box with the balls
 
-				//for (int k = 0; k < ObjectList.size(); k++){
-					if (ObjectList[0]->ball_intersection(&new_position,&ball_position,BALL_RADIUS,&ball_direction,CANVAS_SIZE_Y,CANVAS_SIZE_X)){
+				for (int k = 0; k < ObjectList.size(); k++){
+					if (ObjectList[k]->ball_intersection(&new_position,&ball_position,BALL_RADIUS,&ball_direction,CANVAS_SIZE_Y,CANVAS_SIZE_X)){
 						//ball_direction.y = -ball_direction.y;
 						//ball_direction.x = -ball_direction.x;
-						//ObjectList[k]->setHit();
+						ObjectList[k]->setHit();
 					}
-			//	}
+				}
 
 				ball_position = new_position;
 		}
