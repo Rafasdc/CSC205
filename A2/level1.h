@@ -45,6 +45,10 @@ Box brick11(425,450,130,205,145,173,78,255);
 Box brick12(425,450,210,285,145,173,78,255);
 Box brick13(425,525,290,315,145,173,78,255);
 
+//Vector2d ball_position;
+//Vector2d ball_direction;
+Ball ball(400,300,cos(30*(M_PI/180.0)),sin(30*(M_PI/180.0)), 7,150, 255,67,55,255);
+
 
 std::vector<Box *> ObjectList;
 
@@ -53,21 +57,23 @@ class A2Canvas2{
 public:
 	static const int CANVAS_SIZE_X = 800;
 	static const int CANVAS_SIZE_Y = 600;
-		static const int BALL_RADIUS = 15;
-		static const float BALL_VELOCITY = 150; //Pixels/second
-
-		static const int NUM_COLOURS = 7;
+	//static const int BALL_RADIUS = 15;
+	//static const float BALL_VELOCITY = 150; //Pixels/second
+	static const int NUM_COLOURS = 7;
 
 
 	A2Canvas2(){
-		ball_position.x = CANVAS_SIZE_X/2;
-		ball_position.y = CANVAS_SIZE_Y/2;
-		ball_direction.x = cos(30*(M_PI/180.0));
-		ball_direction.y = sin(30*(M_PI/180.0));
-		ball_colour_idx = 0;
-		start = false;
-		ObjectList.push_back(&brick1);
 
+		//ball_position.x = CANVAS_SIZE_X/2;
+		//ball_position.y = CANVAS_SIZE_Y/2;
+		////ball_direction.x = cos(30*(M_PI/180.0));
+		//ball_direction.y = sin(30*(M_PI/180.0));
+		//ball_colour_idx = 0;
+
+
+		//start = false;
+		ObjectList.push_back(&brick1);
+		/*
 		ObjectList.push_back(&brick2);
 		ObjectList.push_back(&brick3);
 		ObjectList.push_back(&brick4);
@@ -80,6 +86,7 @@ public:
 		ObjectList.push_back(&brick11);
 		ObjectList.push_back(&brick12);
 		ObjectList.push_back(&brick13);
+		*/
 
 
 
@@ -140,13 +147,15 @@ private:
 
 	void handle_key_down2(SDL_Keycode key){
 		if (key == SDLK_s){
-			start = true;
+			//start = true;
 		}else if (key == SDLK_r){
+			/*
 			Vector2d rotation( cos(30*(M_PI/180)), sin(30*(M_PI/180)) );
 			Vector2d new_direction(
 			rotation.x*ball_direction.x - rotation.y*ball_direction.y,
 			rotation.x*ball_direction.y + rotation.y*ball_direction.x);
 			ball_direction = new_direction;
+			*/
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
@@ -159,88 +168,28 @@ private:
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
 
 
-
-		float frame_delta_seconds = frame_delta_ms/1000.0;
-		float position_delta = frame_delta_seconds*BALL_VELOCITY;
-		Vector2d new_position = ball_position + position_delta*ball_direction;
-
-		if (start){
-		//The ball collides with the edge of the screen if the new position is less than BALL_RADIUS
-		//pixels away from any edge.
-
-				if (new_position.x <= BALL_RADIUS){
-					//Collide with left edge
-
-					//Determine how far past the collision point the new position is.
-					float offset_x = BALL_RADIUS-new_position.x;
-					//Mirror the direction around the y axis (since the ball bounces)
-					ball_direction.x = -ball_direction.x;
-					new_position.x += 2*offset_x;
-				}else if(new_position.x >= CANVAS_SIZE_X - BALL_RADIUS){
-					//Collide with right edge
-
-					//Determine how far past the collision point the new position is.
-					float offset_x = new_position.x - (CANVAS_SIZE_X-BALL_RADIUS);
-					//Mirror the direction around the y axis (since the ball bounces)
-					ball_direction.x = -ball_direction.x;
-					new_position.x -= 2*offset_x;
-				}else if(new_position.y <= BALL_RADIUS){
-					//Collide with top
-
-					//Determine how far past the collision point the new position is.
-					float offset_y = BALL_RADIUS-new_position.y;
-					//Mirror the direction around the x axis (since the ball bounces)
-					ball_direction.y = -ball_direction.y;
-					new_position.y += 2*offset_y;
-				}else if(new_position.y >= CANVAS_SIZE_Y - BALL_RADIUS){
-					//Collide with bottom
-
-					//Determine how far past the collision point the new position is.
-					float offset_y = new_position.y - (CANVAS_SIZE_Y-BALL_RADIUS);
-					//Mirror the direction around the x axis (since the ball bounces)
-					ball_direction.y = -ball_direction.y;
-					new_position.y -= 2*offset_y;
-				}
-
-
-				//check intersection of each box with the balls
-
-				for (int k = 0; k < ObjectList.size(); k++){
-					if (ObjectList[k]->ball_intersection(&new_position,&ball_position,BALL_RADIUS,&ball_direction,CANVAS_SIZE_Y,CANVAS_SIZE_X)){
-						//ball_direction.y = -ball_direction.y;
-						//ball_direction.x = -ball_direction.x;
-						ObjectList[k]->setHit();
-					}
-				}
-
-				ball_position = new_position;
-		}
+		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
+		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
 		SDL_RenderClear(renderer);
 
+		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
 
-		const ColourRGB& ball_colour = BALL_COLOURS[ball_colour_idx];
-		filledCircleRGBA(renderer,ball_position.x,ball_position.y,BALL_RADIUS,ball_colour.r,ball_colour.g,ball_colour.b,255);
+		//const ColourRGB& ball_colour = BALL_COLOURS[ball_colour_idx];
+		//filledCircleRGBA(renderer,ball_position.x,ball_position.y,BALL_RADIUS,ball_colour.r,ball_colour.g,ball_colour.b,255);
 
 		//draw each box
 		for (int k = 0; k < ObjectList.size(); k++){
 			ObjectList[k]->draw(renderer);
 		}
-
-
-
-
-
-
-
 		SDL_RenderPresent(renderer);
 	}
 
-	Vector2d ball_position,ball_direction;
-	int ball_colour_idx;
-	Vector2d box_position1;
-	Vector2d box_position2;
-	bool start;
+	//Vector2d ball_position,ball_direction;
+	//int ball_colour_idx;
+	//Vector2d box_position1;
+	//Vector2d box_position2;
+	//bool start;
 
 
 };

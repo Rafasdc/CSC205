@@ -22,7 +22,7 @@
 
 #include "vector2d.h"
 #include "colourRGB.h"
-//#include "object.h"
+#include "ball.h"
 
 
 class Box{
