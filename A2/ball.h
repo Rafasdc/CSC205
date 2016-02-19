@@ -82,8 +82,8 @@ public:
 		filledCircleRGBA(renderer,ball_position.x,ball_position.y,radius,r,g,b,a);
 	}
 
-	/*
-	void ball_rectangle_col(int x1, int x2, int y1, int y2, int CANVAS_SIZE_Y, int CANVAS_SIZE_X){
+
+	void ball_rectangle_col(int x1, int x2, int y1, int y2){
 
 		if (ball_position.x <= x1+radius && new_position.x >= x1-radius ){
 			if (new_position.y >= y1 - radius && new_position.y <= y2 + radius){
@@ -113,7 +113,6 @@ public:
 		}
 		//return hit;
 	}
-	*/
 
 
 

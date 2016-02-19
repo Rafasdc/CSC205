@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
+
 #include "vector2d.h"
 #include "colourRGB.h"
 #include "box.h"
@@ -170,18 +171,27 @@ private:
 
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
+
+		ball.ball_rectangle_col(brick1.x1, brick1.x2, brick1.y1, brick1.y2);
 		SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
 		SDL_RenderClear(renderer);
 
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
-
-		//const ColourRGB& ball_colour = BALL_COLOURS[ball_colour_idx];
-		//filledCircleRGBA(renderer,ball_position.x,ball_position.y,BALL_RADIUS,ball_colour.r,ball_colour.g,ball_colour.b,255);
-
 		//draw each box
-		for (int k = 0; k < ObjectList.size(); k++){
-			ObjectList[k]->draw(renderer);
-		}
+				for (int k = 0; k < ObjectList.size(); k++){
+					ObjectList[k]->draw(renderer);
+				}
+		SDL_Rect r;
+		r.x = 100;
+		r.y = 100;
+		r.w = 50;
+		r.h = 25;
+		SDL_Surface* canada = SDL_LoadBMP("canada.bmp");
+		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,canada);
+		SDL_RenderCopy(renderer, texture, NULL, &r);
+
+
+
 		SDL_RenderPresent(renderer);
 	}
 
