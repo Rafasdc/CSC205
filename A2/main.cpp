@@ -37,9 +37,9 @@ int main(){
 	Menu menu;
 	menu.frame_loop_menu(renderer);
 
-	A2Canvas2 canvas;
+	A2Canvas2 level1;
 
-	canvas.frame_loop2(renderer);
+	level1.frame_loop2(renderer);
 	printf("first level ended/n");
 	//canvas.frame_loop2(renderer)
 	Lose lose;
