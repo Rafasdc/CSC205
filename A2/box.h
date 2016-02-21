@@ -22,7 +22,7 @@
 
 #include "vector2d.h"
 #include "colourRGB.h"
-#include "ball.h"
+
 
 
 class Box{
@@ -52,51 +52,35 @@ public:
 		}
 	}
 
-	bool ball_intersection(Vector2d  * new_position, Vector2d * current_position, int radius, Vector2d * ball_direction, int CANVAS_SIZE_Y, int CANVAS_SIZE_X){
+	bool ball_intersection(Vector2d  * new_position, Vector2d * current_position, int radius, Vector2d * ball_direction){
 		if (hit){
 			return false;
 		}
-
-		/*
-		if ((new_position.x >= x1 - BALL_RADIUS  && new_position.x <= x2 + BALL_RADIUS)) {
-			if (new_position.y >= y1 - BALL_RADIUS && new_position.y <= y2 + BALL_RADIUS){
-				ball_direction->y = -ball_direction->y;
-				//ball_direction->x = ball_direction->x;
-				return true;
-			}
-		}
-		*/
-
-		/*
-		 * use or in both new_position to change x direciton and on both
-		 * y to change y direction, insted of having one big if in each statement have a big one before.
-		 *
-		 */
 
 		if (current_position->x <= x1+radius && new_position->x >= x1-radius ){
 			if (new_position->y >= y1 - radius && new_position->y <= y2 + radius){
 				ball_direction->x = -ball_direction->x;
 				printf("left edge\n");
-				hit = true;
+				//hit = true;
 			}
 		} else if (current_position->x >= x2-radius && new_position->x <= x2+radius){
 
 			if (new_position->y >= y1 - radius && new_position->y <= y2 + radius){
 				printf("right edge\n");
 				ball_direction->x = -ball_direction->x;
-				hit = true;
+				//hit = true;
 			}
 		} else if (current_position->y >= y2 - radius && new_position->y <= y2+radius){
 			if ((new_position->x >= x1 - radius  && new_position->x <= x2 + radius)) {
 				printf("bottom\n");
 				ball_direction->y = -ball_direction->y;
-				hit = true;
+				//hit = true;
 			}
 		} else if (current_position->y <= y1 + radius && new_position->y >= y1-radius){
 			if ((new_position->x >= x1 - radius  && new_position->x <= x2 + radius)) {
 				printf("top\n");
 				ball_direction->y = -ball_direction->y;
-				hit = true;
+				//hit = true;
 			}
 		}
 		return hit;

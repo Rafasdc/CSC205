@@ -9,6 +9,8 @@
 #include "vector2d.h"
 #include "colourRGB.h"
 #include "box.h"
+#include "ball.h"
+#include "line.h"
 
 using namespace std;
 
@@ -46,56 +48,46 @@ Box brick11(425,450,130,205,145,173,78,255);
 Box brick12(425,450,210,285,145,173,78,255);
 Box brick13(425,525,290,315,145,173,78,255);
 
-//Vector2d ball_position;
-//Vector2d ball_direction;
-Ball ball(400,300,cos(30*(M_PI/180.0)),sin(30*(M_PI/180.0)), 7,150, 255,67,55,255);
+//Play
+Box play(350,450,580,590,0,0,255,255);
 
 
-std::vector<Box *> ObjectList;
+//Ball
+Ball ball(400,571,135,135, 7,150, 255,67,55,255);
+
+//line right
+Line line_right(400,580,420,550,255,255,255,255);
+
+//line left
+Line line_left(400,580,380,550,255,255,255,255);
+
+
+std::vector<Box *> BrickList;
 
 
 class A2Canvas2{
 public:
 	static const int CANVAS_SIZE_X = 800;
 	static const int CANVAS_SIZE_Y = 600;
-	//static const int BALL_RADIUS = 15;
-	//static const float BALL_VELOCITY = 150; //Pixels/second
-	static const int NUM_COLOURS = 7;
+
 
 
 	A2Canvas2(){
-
-		//ball_position.x = CANVAS_SIZE_X/2;
-		//ball_position.y = CANVAS_SIZE_Y/2;
-		////ball_direction.x = cos(30*(M_PI/180.0));
-		//ball_direction.y = sin(30*(M_PI/180.0));
-		//ball_colour_idx = 0;
-
-
-		//start = false;
-		ObjectList.push_back(&brick1);
-		/*
-		ObjectList.push_back(&brick2);
-		ObjectList.push_back(&brick3);
-		ObjectList.push_back(&brick4);
-		ObjectList.push_back(&brick5);
-		ObjectList.push_back(&brick6);
-		ObjectList.push_back(&brick7);
-		ObjectList.push_back(&brick8);
-		ObjectList.push_back(&brick9);
-		ObjectList.push_back(&brick10);
-		ObjectList.push_back(&brick11);
-		ObjectList.push_back(&brick12);
-		ObjectList.push_back(&brick13);
-		*/
-
-
-
+		first = true;
+		BrickList.push_back(&brick1);
+		BrickList.push_back(&brick2);
+		BrickList.push_back(&brick3);
+		BrickList.push_back(&brick4);
+		BrickList.push_back(&brick5);
+		BrickList.push_back(&brick6);
+		BrickList.push_back(&brick7);
+		BrickList.push_back(&brick8);
+		BrickList.push_back(&brick9);
+		BrickList.push_back(&brick10);
+		BrickList.push_back(&brick11);
+		BrickList.push_back(&brick12);
+		BrickList.push_back(&brick13);
 	}
-
-
-
-
 
 	void frame_loop2(SDL_Renderer* r){
 		unsigned int last_frame = SDL_GetTicks();
@@ -148,39 +140,83 @@ private:
 
 	void handle_key_down2(SDL_Keycode key){
 		if (key == SDLK_s){
-			//start = true;
+			ball.start = true;
+			first = false;
 		}else if (key == SDLK_r){
-			/*
+
 			Vector2d rotation( cos(30*(M_PI/180)), sin(30*(M_PI/180)) );
 			Vector2d new_direction(
-			rotation.x*ball_direction.x - rotation.y*ball_direction.y,
-			rotation.x*ball_direction.y + rotation.y*ball_direction.x);
-			ball_direction = new_direction;
-			*/
+			rotation.x*ball.ball_direction.x - rotation.y*ball.ball_direction.y,
+			rotation.x*ball.ball_direction.y + rotation.y*ball.ball_direction.x);
+			ball.ball_direction = new_direction;
+
+		} else if (key == SDLK_a){
+			if (first){
+				ball.ball_position.x -=15;
+			}
+			play.x1 -= 15;
+			play.x2 -= 15;
+		} else if (key == SDLK_d){
+			if (first){
+				ball.ball_position.x +=15;
+			}
+			play.x1 += 15;
+			play.x2 += 15;
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
+		if (button == SDL_BUTTON_LEFT){
+			ball.start = true;
+			first = false;
+		}
 	}
 	void handle_mouse_up2(int x, int y, int button){
 	}
 	void handle_mouse_moved2(int x, int y){
+		printf("x is %d, y is %d\n", x,y);
+		mouse_x = x;
+
+		//ball.set_direction(x,x);
+		//play.x1 = x;
+		//play.x2 = x+100;
 	}
 
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
 
-
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 
-		ball.ball_rectangle_col(brick1.x1, brick1.x2, brick1.y1, brick1.y2);
+		for (int k = 0; k < BrickList.size(); k++){
+					(ball.ball_rectangle_col(BrickList[k]));
+		}
+
+
 		SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
 		SDL_RenderClear(renderer);
 
+
+		if (first && mouse_x < CANVAS_SIZE_X/2){
+			ball.set_direction(135,135);
+			line_left.draw(renderer);
+		} else if (first) {
+			ball.set_direction(45,45);
+			line_right.draw(renderer);
+
+		}
+
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
+
 		//draw each box
-				for (int k = 0; k < ObjectList.size(); k++){
-					ObjectList[k]->draw(renderer);
-				}
+		for (int k = 0; k < BrickList.size(); k++){
+			BrickList[k]->draw(renderer);
+		}
+		play.draw(renderer);
+		if (!first){
+			play.ball_intersection(&ball.new_position, &ball.ball_position,ball.radius,&ball.ball_direction);
+		}
+
+
+		/*
 		SDL_Rect r;
 		r.x = 100;
 		r.y = 100;
@@ -189,19 +225,14 @@ private:
 		SDL_Surface* canada = SDL_LoadBMP("canada.bmp");
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,canada);
 		SDL_RenderCopy(renderer, texture, NULL, &r);
+		*/
 
 
 
 		SDL_RenderPresent(renderer);
 	}
-
-	//Vector2d ball_position,ball_direction;
-	//int ball_colour_idx;
-	//Vector2d box_position1;
-	//Vector2d box_position2;
-	//bool start;
-
-
+	bool first;
+	int mouse_x;
 };
 
 

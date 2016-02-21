@@ -15,6 +15,7 @@
 #endif /* BALL_H_ */
 
 
+
 class Ball{
 public:
 	Ball(float ball_position_x_in,float ball_position_y_in,float ball_direction_x_in, float ball_direction_y_in, int radius_in, int velocity_in,int r_in, int g_in, int b_in, int a_in){
@@ -22,22 +23,24 @@ public:
 		ball_position.x = ball_position_x_in;
 		ball_position.y = ball_position_y_in;
 		//new_position = new_position_in;
-		ball_direction.x = ball_direction_x_in;
-		ball_direction.y = ball_direction_y_in;
+
+		ball_direction.x = cos(ball_direction_x_in*(M_PI/180.0)); //in is in degrees
+		ball_direction.y = sin(ball_direction_y_in*(M_PI/180.0));//in is in degrees
 		radius = radius_in;
 		velocity = velocity_in;
 		r = r_in;
 		g = g_in;
 		b = b_in;
 		a = a_in;
+		start = false;
 	}
 
 
 
 	void move(SDL_Renderer* renderer, float frame_delta_ms, int CANVAS_SIZE_X, int CANVAS_SIZE_Y){
-		float frame_delta_seconds = frame_delta_ms/1000.0;
-		float position_delta = frame_delta_seconds*velocity;
-		new_position = ball_position + position_delta*ball_direction;
+			float frame_delta_seconds = frame_delta_ms/1000.0;
+			float position_delta = frame_delta_seconds*velocity;
+			new_position = ball_position + position_delta*ball_direction;
 
 
 	}
@@ -75,7 +78,9 @@ public:
 			ball_direction.y = -ball_direction.y;
 			new_position.y -= 2*offset_y;
 		}
-			ball_position = new_position;
+			if (start){
+				ball_position = new_position;
+			}
 	}
 
 	void draw(SDL_Renderer* renderer, float frame_delta_seconds, int CANVAS_SIZE_X, int CANVAS_SIZE_Y ){
@@ -83,39 +88,55 @@ public:
 	}
 
 
-	void ball_rectangle_col(int x1, int x2, int y1, int y2){
-
-		if (ball_position.x <= x1+radius && new_position.x >= x1-radius ){
-			if (new_position.y >= y1 - radius && new_position.y <= y2 + radius){
+	void ball_rectangle_col(Box* box){
+		if (box->hit == false){
+		if (ball_position.x <= box->x1+radius && new_position.x >= box->x1-radius ){
+			if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
 				ball_direction.x = -ball_direction.x;
+				new_position.x = box->x1-radius-1;
 				printf("left edge\n");
-				//hit = true;
+				box->setHit();
 			}
-		} else if (ball_position.x >= x2-radius && new_position.x <= x2+radius){
+		} else if (ball_position.x >= box->x2-radius && new_position.x <= box->x2+radius){
 
-			if (new_position.y >= y1 - radius && new_position.y <= y2 + radius){
+			if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
 				printf("right edge\n");
 				ball_direction.x = -ball_direction.x;
-				//hit = true;
+				new_position.x = box->x2+radius+1;
+				box->setHit();
+
 			}
-		} else if (ball_position.y >= y2 - radius && new_position.y <= y2+radius){
-			if ((new_position.x >= x1 - radius  && new_position.x <= x2 + radius)) {
+		} else if (ball_position.y >= box->y2 - radius && new_position.y <= box->y2+radius){
+
+			if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
 				printf("bottom\n");
 				ball_direction.y = -ball_direction.y;
-				//hit = true;
+				new_position.y = box->y2+radius+1;
+				box->setHit();
 			}
-		} else if (ball_position.y <= y1 + radius && new_position.y >= y1-radius){
-			if ((new_position.x >= x1 - radius  && new_position.x <= x2 + radius)) {
+		} else if (ball_position.y <= box->y1 + radius && new_position.y >= box->y1-radius){
+
+			if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
 				printf("top\n");
 				ball_direction.y = -ball_direction.y;
-				//hit = true;
+				new_position.y = box->y1-radius-1;
+				box->setHit();
 			}
 		}
-		//return hit;
+		if(start){
+			ball_position = new_position;
+		}
+		}
+	}
+
+	void set_direction(int x, int y){
+		ball_direction.x = cos(x*(M_PI/180.0)); //in is in degrees
+		ball_direction.y = sin(y*(M_PI/180.0));//in is in degrees
 	}
 
 
 
 	Vector2d ball_position, ball_direction, new_position;
 	int radius, velocity,r,g,b,a;
+	bool start;
 };
