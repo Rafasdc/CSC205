@@ -10,6 +10,7 @@ Assignment 2 CSC205
 #include "vector2d.h"
 #include "colourRGB.h"
 #include "level1.h"
+#include "lose.h"
 
 using namespace std;
 
@@ -35,8 +36,11 @@ int main(){
 	A2Canvas2 canvas;
 
 	canvas.frame_loop2(renderer);
-	//printf("first renderer finished");
-	//canvas.frame_loop2(renderer);
+	printf("first level ended/n");
+	//canvas.frame_loop2(renderer)
+	Lose lose;
+	lose.frame_loop_lose(renderer);
+
 	
 
 	return 0;

@@ -128,7 +128,9 @@ public:
 
 			last_frame = current_frame;
 			frame_number++;
-
+			//if (ball.hit_bottom){
+			//	break;
+			//}
 
 		}
 
@@ -185,6 +187,8 @@ private:
 
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
+
+
 
 		for (int k = 0; k < BrickList.size(); k++){
 					(ball.ball_rectangle_col(BrickList[k]));

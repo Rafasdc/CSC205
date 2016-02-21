@@ -33,6 +33,7 @@ public:
 		b = b_in;
 		a = a_in;
 		start = false;
+		hit_bottom = false;
 	}
 
 
@@ -77,6 +78,7 @@ public:
 			//Mirror the direction around the x axis (since the ball bounces)
 			ball_direction.y = -ball_direction.y;
 			new_position.y -= 2*offset_y;
+			hit_bottom = true;
 		}
 			if (start){
 				ball_position = new_position;
@@ -138,5 +140,5 @@ public:
 
 	Vector2d ball_position, ball_direction, new_position;
 	int radius, velocity,r,g,b,a;
-	bool start;
+	bool start, hit_bottom;
 };
