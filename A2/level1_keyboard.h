@@ -15,16 +15,6 @@
 using namespace std;
 
 
-static const ColourRGB BALL_COLOURS[] = {
-	ColourRGB(0,0,0),
-	ColourRGB(255,0,0),
-	ColourRGB(0,255,0),
-	ColourRGB(0,0,255),
-	ColourRGB(0,255,255),
-	ColourRGB(255,0,255),
-	ColourRGB(255,255,0)
-};
-
 //C
 //top to bottom
 //Box brick1(100,300,100,350,145,173,78,255);
@@ -155,12 +145,21 @@ private:
 		} else if (key == SDLK_a){
 			if (first){
 				ball.ball_position.x -=15;
+				line_right.x1 -= 15;
+				line_right.x2 -= 15;
+				line_left.x1 -= 15;
+				line_left.x2 -= 15;
+
 			}
 			play.x1 -= 15;
 			play.x2 -= 15;
 		} else if (key == SDLK_d){
 			if (first){
 				ball.ball_position.x +=15;
+				line_right.x1 += 15;
+				line_right.x2 += 15;
+				line_left.x2 += 15;
+				line_left.x1 += 15;
 			}
 			play.x1 += 15;
 			play.x2 += 15;

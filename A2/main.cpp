@@ -11,6 +11,7 @@ Assignment 2 CSC205
 #include "colourRGB.h"
 #include "level1.h"
 #include "lose.h"
+#include "menu.h"
 
 using namespace std;
 
@@ -33,6 +34,9 @@ int main(){
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 	
+	Menu menu;
+	menu.frame_loop_menu(renderer);
+
 	A2Canvas2 canvas;
 
 	canvas.frame_loop2(renderer);
