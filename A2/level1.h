@@ -166,10 +166,11 @@ private:
 			play.x1 += 15;
 			play.x2 += 15;
 		} else if (key == SDLK_b){
-			//Ball copy = arb;
-			arb.start = true;
-			BallList.push_back(arb);
-			arb.start = true;
+			if (!first){
+				arb.start = true;
+				BallList.push_back(arb);
+				arb.start = true;
+			}
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){

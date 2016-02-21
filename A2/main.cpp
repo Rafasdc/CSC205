@@ -1,5 +1,7 @@
-/* sample_ball.cpp
+/*
 Assignment 2 CSC205
+Rafael Solorzano
+V00838235
 */
 #include <iostream>
 #include <vector>
