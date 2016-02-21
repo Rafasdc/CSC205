@@ -177,9 +177,16 @@ private:
 		printf("x is %d, y is %d\n", x,y);
 		mouse_x = x;
 
-		//ball.set_direction(x,x);
-		//play.x1 = x;
-		//play.x2 = x+100;
+		/*
+		play.x1 = x;
+		play.x2 = x+100;
+		ball.ball_position.x =x+50;
+		line_right.x1 = x+50;
+		line_right.x2 = x+50;
+		line_left.x2 = x+50;
+		line_left.x1 = x+50;
+		*/
+
 	}
 
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
@@ -236,6 +243,8 @@ private:
 	}
 	bool first;
 	int mouse_x;
+	bool play_mouse;
+	bool play_keyboard;
 };
 
 
