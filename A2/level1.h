@@ -44,6 +44,7 @@ Box play(350,450,580,590,0,0,255,255);
 
 //Ball
 Ball ball(400,571,135,135, 7,150, 255,67,55,255);
+Ball arb(25,25,135,135, 7,150, 255,67,55,255);
 
 //line right
 Line line_right(400,580,420,550,255,255,255,255);
@@ -53,6 +54,7 @@ Line line_left(400,580,380,550,255,255,255,255);
 
 
 std::vector<Box *> BrickList;
+std::vector<Ball> BallList;
 
 
 class A2Canvas2{
@@ -163,6 +165,11 @@ private:
 			}
 			play.x1 += 15;
 			play.x2 += 15;
+		} else if (key == SDLK_b){
+			//Ball copy = arb;
+			arb.start = true;
+			BallList.push_back(arb);
+			arb.start = true;
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
@@ -194,7 +201,10 @@ private:
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 
-
+		for (int k = 0; k < BallList.size(); k++){
+					BallList[k].move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
+					BallList[k].screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
+		}
 
 		for (int k = 0; k < BrickList.size(); k++){
 					(ball.ball_rectangle_col(BrickList[k]));
@@ -215,6 +225,9 @@ private:
 		}
 
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
+		for (int k = 0; k < BallList.size(); k++){
+					BallList[k].draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
+		}
 
 		//draw each box
 		for (int k = 0; k < BrickList.size(); k++){
