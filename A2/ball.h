@@ -34,6 +34,7 @@ public:
 		a = a_in;
 		start = false;
 		hit_bottom = false;
+		hit = false;
 	}
 
 
@@ -131,14 +132,41 @@ public:
 		}
 	}
 
+	void ball_ball_col(Ball ball){
+		Vector2d R = ball_position - ball.ball_position;
+		int R_distance = sqrt(R.x*R.x + R.y*R.y);
+		Vector2d n = R/R_distance;
+		if(R_distance < radius + ball.radius){
+			ball_direction = ball.ball_direction;
+			ball.ball_direction = ball_direction;
+			ball_position = ball_position + ball_direction;
+			ball.ball_position = ball.ball_position + ball.ball_direction;
+			//printf("ball velocity is %d\n", ball->velocity);
+
+			/*
+			ball_direction.x = (2*ball->r*ball->velocity)/(radius+ball->radius);
+			ball_direction.y = (2*ball->r*ball->velocity)/(radius+ball->radius);
+			*/
+
+		}
+	}
+
 	void set_direction(int x, int y){
 		ball_direction.x = cos(x*(M_PI/180.0)); //in is in degrees
 		ball_direction.y = sin(y*(M_PI/180.0));//in is in degrees
+	}
+
+	Vector2d get_position(){
+		return ball_position;
+	}
+
+	Vector2d get_direction(){
+		return ball_direction;
 	}
 
 
 
 	Vector2d ball_position, ball_direction, new_position;
 	int radius, velocity,r,g,b,a;
-	bool start, hit_bottom;
+	bool start, hit_bottom, hit;
 };

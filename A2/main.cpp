@@ -37,15 +37,17 @@ int main(){
 	SDL_RenderPresent(renderer);
 	
 	Menu menu;
-	menu.frame_loop_menu(renderer);
+	Level1 level1;
 
-	A2Canvas2 level1;
+	menu.frame_loop_menu(renderer, &level1);
+
+
 
 	level1.frame_loop2(renderer);
 	printf("first level ended/n");
 	//canvas.frame_loop2(renderer)
-	Lose lose;
-	lose.frame_loop_lose(renderer);
+	//Lose lose;
+	//lose.frame_loop_lose(renderer);
 
 	
 

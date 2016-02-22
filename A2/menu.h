@@ -27,8 +27,8 @@ static const ColourRGB BALL_COLOURS[] = {
 //C
 //top to bottom
 //Box brick1(100,300,100,350,145,173,78,255);
-Box choice1(290,490,365,420,255,128,0,255);
-Box choice2(290,490,490,545,51,153,255,255);
+//Box choice1(290,490,365,420,255,128,0,255,96,0,16,8);
+//Box choice2(290,490,490,545,51,153,255,255,96,0,16,8);
 
 
 
@@ -43,11 +43,11 @@ public:
 
 
 	Menu(){
-		option1 = false;
+		mouse = false;
 
 	}
 
-	void frame_loop_menu(SDL_Renderer* r){
+	void frame_loop_menu(SDL_Renderer* r, Level1* level1){
 		unsigned int last_frame = SDL_GetTicks();
 		unsigned int frame_number = 0;
 		while(1){
@@ -86,7 +86,11 @@ public:
 
 			last_frame = current_frame;
 			frame_number++;
-			if (option1){
+			if (mouse){
+				level1->set_mouse();
+				break;
+			} else if (keyboard){
+				level1->set_keyboard();
 				break;
 			}
 
@@ -105,7 +109,14 @@ private:
 		if (x >= 290 && x <= 490){
 			if (y <= 420 && y >= 365){
 				if(button == SDL_BUTTON_LEFT){
-					option1 = true;
+					mouse = true;
+				}
+			}
+		}
+		if (x >= 290 && x <= 490){
+			if (y <= 545 && y >= 490){
+				if(button == SDL_BUTTON_LEFT){
+					keyboard = true;
 				}
 			}
 		}
@@ -125,16 +136,17 @@ private:
 
 		//stringRGBA(renderer,315,310,"BALLS",0,0,204,255);
 
-		choice1.draw(renderer);
+		boxRGBA(renderer,290,365,490,420,255,128,0,255);
+		//choice1.draw(renderer);
 		stringRGBA(renderer,315,385,"CLICK HERE TO PLAY",0,0,204,255);
 		stringRGBA(renderer,350,400,"WITH MOUSE",0,0,204,255);
-		choice2.draw(renderer);
+		boxRGBA(renderer,290,490,490,545,51,153,255,255);
 		stringRGBA(renderer,315,510,"CLICK HERE TO PLAY",102,0,0,255);
 		stringRGBA(renderer,350,525,"WITH KEYBOARD",102,0,0,255);
 
 		SDL_RenderPresent(renderer);
 	}
-	bool option1;
+	bool mouse, keyboard;
 };
 
 
