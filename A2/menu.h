@@ -155,7 +155,7 @@ private:
 	void handle_mouse_up2(int x, int y, int button){
 	}
 	void handle_mouse_moved2(int x, int y){
-		printf("x is %d, y is %d\n", x,y);
+		//printf("x is %d, y is %d\n", x,y);
 	}
 
 	void draw_menu(SDL_Renderer *renderer, float frame_delta_ms){

@@ -86,6 +86,7 @@ public:
 		key_a = true;
 		key_d = false;
 		first = true;
+		lose_disable = false;
 		BrickList.push_back(&brick1);
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
@@ -160,7 +161,9 @@ public:
 			frame_number++;
 
 			if (ball.hit_bottom){
-				//return -1;
+				if(!lose_disable){
+					return -1;
+				}
 			}
 
 			if (BrickList.size() == 0){
@@ -204,17 +207,18 @@ private:
 			key_a = true;
 
 			if(play_keyboard){
+				if (play.x1-25 >= 0){
 				if (first){
-					ball.ball_position.x -=20;
-					line_right.x1 -= 20;
-					line_right.x2 -= 20;
-					line_left.x1 -= 20;
-					line_left.x2 -= 20;
-					arb.ball_position.x= 70;
-
+					ball.ball_position.x -=25;
+					line_right.x1 -= 25;
+					line_right.x2 -= 25;
+					line_left.x1 -= 25;
+					line_left.x2 -= 25;
 				}
-				play.x1 -= 20;
-				play.x2 -= 20;
+
+					play.x1 -= 25;
+					play.x2 -= 25;
+				}
 			}
 
 
@@ -223,26 +227,29 @@ private:
 			key_a = false;
 			key_d = true;
 			if (play_keyboard){
+				if (play.x2+25 <= CANVAS_SIZE_X){
 				if (first){
-					ball.ball_position.x +=20;
-					line_right.x1 += 20;
-					line_right.x2 += 20;
-					line_left.x2 += 20;
-					line_left.x1 += 20;
-					arb.ball_position.x= 750;
+					ball.ball_position.x +=25;
+					line_right.x1 += 25;
+					line_right.x2 += 25;
+					line_left.x2 += 25;
+					line_left.x1 += 25;
 				}
-				play.x1 += 20;
-				play.x2 += 20;
+
+					play.x1 += 25;
+					play.x2 += 25;
+				}
 			}
 
 
-		} else if (key == SDLK_b){
+		} else if (key == SDLK_n){
 			/*
 			if (!first){
 				arb.start = true;
 				BallList.push_back(arb);
 			}
 			*/
+			lose_disable = true;
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
@@ -355,7 +362,7 @@ private:
 
 		SDL_RenderPresent(renderer);
 	}
-	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2;
+	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable;
 	int mouse_x;
 };
 
