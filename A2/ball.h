@@ -92,38 +92,37 @@ public:
 
 
 	void ball_rectangle_col(Box* box){
-		if (box->hit == false){
-		if (ball_position.x <= box->x1+radius && new_position.x >= box->x1-radius ){
-			if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
-				ball_direction.x = -ball_direction.x;
-				new_position.x = box->x1-radius-1;
-				printf("left edge\n");
-				box->setHit();
-			}
-		} else if (ball_position.x >= box->x2-radius && new_position.x <= box->x2+radius){
+		if (box->hits != box->hits_to_destroy){
+			if (ball_position.x <= box->x1+radius && new_position.x >= box->x1-radius ){
+				if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
+					ball_direction.x = -ball_direction.x;
+					new_position.x = box->x1-radius-1;
+					printf("left edge\n");
+					box->hits++;
+				}
+			} else if (ball_position.x >= box->x2-radius && new_position.x <= box->x2+radius){
+				if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
+					printf("right edge\n");
+					ball_direction.x = -ball_direction.x;
+					new_position.x = box->x2+radius+1;
+					box->hits++;
 
-			if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
-				printf("right edge\n");
-				ball_direction.x = -ball_direction.x;
-				new_position.x = box->x2+radius+1;
-				box->setHit();
+				}
+			} else if (ball_position.y >= box->y2 - radius && new_position.y <= box->y2+radius){
 
-			}
-		} else if (ball_position.y >= box->y2 - radius && new_position.y <= box->y2+radius){
+				if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
+					printf("bottom\n");
+					ball_direction.y = -ball_direction.y;
+					new_position.y = box->y2+radius+1;
+					box->hits++;
+				}
+			} else if (ball_position.y <= box->y1 + radius && new_position.y >= box->y1-radius){
 
-			if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
-				printf("bottom\n");
-				ball_direction.y = -ball_direction.y;
-				new_position.y = box->y2+radius+1;
-				box->setHit();
-			}
-		} else if (ball_position.y <= box->y1 + radius && new_position.y >= box->y1-radius){
-
-			if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
-				printf("top\n");
-				ball_direction.y = -ball_direction.y;
-				new_position.y = box->y1-radius-1;
-				box->setHit();
+				if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
+					printf("top\n");
+					ball_direction.y = -ball_direction.y;
+					new_position.y = box->y1-radius-1;
+					box->hits++;
 			}
 		}
 		if(start){

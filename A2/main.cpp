@@ -14,6 +14,7 @@ V00838235
 #include "level1.h"
 #include "lose.h"
 #include "menu.h"
+#include "win.h"
 
 using namespace std;
 
@@ -38,18 +39,26 @@ int main(){
 	
 	Menu menu;
 	Level1 level1;
+	Lose lose;
+	Win win;
+	bool quit = false;
 
-	menu.frame_loop_menu(renderer, &level1);
 
-
-
-	level1.frame_loop2(renderer);
-	printf("first level ended/n");
-	//canvas.frame_loop2(renderer)
-	//Lose lose;
-	//lose.frame_loop_lose(renderer);
+	while(!quit){
+		menu.frame_loop_menu(renderer, &level1);
+		int won = level1.frame_loop2(renderer);
+		if (won == 1){
+			win.frame_loop_win(renderer);
+		} else if (won == -1){
+			lose.frame_loop_lose(renderer);
+		} else {
+			quit = true;
+		}
+	}
 
 	
+
+
 
 	return 0;
 }

@@ -54,7 +54,7 @@ public:
 	}
 
 	void draw(SDL_Renderer* renderer){
-		if (!hit){
+		if (hits != hits_to_destroy){
 			//boxRGBA(renderer_in, x1-1, y1-1,x2+1,y2+1,0,0,0,255); //border
 			boxRGBA(renderer, x1,y1,x2,y2,r,g,b,a);
 			SDL_Rect clip;
@@ -75,9 +75,9 @@ public:
 		}
 	}
 
-	bool ball_intersection(Vector2d  * new_position, Vector2d * current_position, int radius, Vector2d * ball_direction){
-		if (hit){
-			return false;
+	void ball_intersection(Vector2d  * new_position, Vector2d * current_position, int radius, Vector2d * ball_direction){
+		if (hits == hits_to_destroy){
+			return;
 		}
 
 		if (current_position->x <= x1+radius && new_position->x >= x1-radius ){
@@ -106,7 +106,6 @@ public:
 				hits++;
 			}
 		}
-		return hit;
 	}
 
 

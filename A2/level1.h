@@ -38,13 +38,31 @@ Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1);
 Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1);
 Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1);
 
+//Lower Line
+Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3);
+Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3);
+Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3);
+Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3);
+Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3);
+Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3);
+Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3);
+Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3);
+Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3);
+Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3);
+Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3);
+Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3);
+Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3);
+Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3);
+Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3);
+
+
 //Play
-Box play(350,450,580,590,0,0,255,255,0,120,63,8,1);
+Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1);
 
 
 //Ball
-Ball ball(400,571,135,135, 7,175, 255,67,55,255);
-Ball arb(25,25,135,135, 7,175, 0,255,55,255);
+Ball ball(400,571,135,135, 7,250, 255,67,55,255);
+Ball arb(25,25,135,135, 7,250, 0,255,55,255);
 
 //line right
 Line line_right(400,580,420,550,255,255,255,255);
@@ -69,6 +87,7 @@ public:
 		key_d = false;
 		first = true;
 		BrickList.push_back(&brick1);
+		/*
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
 		BrickList.push_back(&brick4);
@@ -81,9 +100,27 @@ public:
 		BrickList.push_back(&brick11);
 		BrickList.push_back(&brick12);
 		BrickList.push_back(&brick13);
+		BrickList.push_back(&brick14);
+		BrickList.push_back(&brick15);
+		BrickList.push_back(&brick16);
+		BrickList.push_back(&brick17);
+		BrickList.push_back(&brick18);
+		BrickList.push_back(&brick19);
+		BrickList.push_back(&brick20);
+		BrickList.push_back(&brick21);
+		BrickList.push_back(&brick22);
+		BrickList.push_back(&brick23);
+		BrickList.push_back(&brick24);
+		BrickList.push_back(&brick25);
+		BrickList.push_back(&brick26);
+		BrickList.push_back(&brick27);
+		BrickList.push_back(&brick28);
+		*/
+
+
 	}
 
-	void frame_loop2(SDL_Renderer* r){
+	int frame_loop2(SDL_Renderer* r){
 		unsigned int last_frame = SDL_GetTicks();
 		unsigned int frame_number = 0;
 		while(1){
@@ -97,7 +134,7 @@ public:
 				switch(e.type){
 					case SDL_QUIT:
 						//Exit immediately
-						return;
+						return 2;
 					case SDL_KEYDOWN:
 						//e.key stores the key pressed
 						handle_key_down2(e.key.keysym.sym);
@@ -122,9 +159,15 @@ public:
 
 			last_frame = current_frame;
 			frame_number++;
-			//if (ball.hit_bottom){
-			//	break;
-			//}
+
+			if (ball.hit_bottom){
+				return -1;
+			}
+
+			if (BrickList.size() == 0){
+				return 1;
+			}
+
 
 		}
 
@@ -236,6 +279,15 @@ private:
 
 		for (int k = 0; k < BrickList.size(); k++){
 					(ball.ball_rectangle_col(BrickList[k]));
+					if(BrickList[k]->hits ==1 && BrickList[k]->hits_to_destroy ==1){
+						BrickList.erase(BrickList.begin()+k);
+					}else if (BrickList[k]->hits ==1 && BrickList[k]->hits_to_destroy == 3){
+						BrickList[k]->clip_x = 385;
+					} else if (BrickList[k]->hits ==2 && BrickList[k]->hits_to_destroy == 3){
+						BrickList[k]->clip_x = 337;
+					} else if (BrickList[k]->hits ==3 && BrickList[k]->hits_to_destroy == 3){
+						BrickList.erase(BrickList.begin()+k);
+					}
 		}
 
 		if (!first){
@@ -245,7 +297,6 @@ private:
 		for(int i = 0; i < BallList.size(); i++){
 			ball.ball_ball_col(BallList[i]);
 			for (int j = 1; j < BallList.size(); j++){
-				//printf("should not be here");
 				BallList[i].ball_ball_col(BallList[j]);
 			}
 		}
@@ -285,26 +336,6 @@ private:
 			BrickList[k]->draw(renderer);
 		}
 		play.draw(renderer);
-
-		SDL_Rect source;
-		source.x = 0;
-		source.y = 120;
-		source.w = 63;
-		source.h = 8;
-		SDL_Rect r;
-		r.x = play.x1;
-		r.y = play.y1;
-		r.w = play.x2-play.x1;
-		r.h = play.y2-play.y1;
-		SDL_Surface* surface = SDL_LoadBMP("sprites.bmp");
-		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
-		SDL_RenderCopy(renderer, texture, &source, &r);
-		SDL_FreeSurface(surface);
-		SDL_DestroyTexture(texture);
-
-
-
-
 
 
 
