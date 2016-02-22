@@ -8,6 +8,7 @@ public:
 
 
 	Lose(){
+		kill =false;
 
 	}
 	void frame_loop_lose(SDL_Renderer* r){
@@ -44,6 +45,9 @@ public:
 							break;
 					}
 				}
+				if (kill){
+					break;
+				}
 
 				draw_lose(r,delta_ms);
 
@@ -59,6 +63,9 @@ public:
 	private:
 
 		void handle_key_down2(SDL_Keycode key){
+			if (key == SDLK_SPACE){
+							kill = true;
+			}
 		}
 		void handle_mouse_down2(int x, int y, int button){
 		}
@@ -75,11 +82,12 @@ public:
 			SDL_RenderClear(renderer);
 
 			stringRGBA(renderer,300,300,"YOU LOST",255,0,0,255);
-			stringRGBA(renderer,500,400,"PRESS SPACE TO RETURN TO MAIN MENU",255,0,0,255);
+			stringRGBA(renderer,500,400,"PRESS SPACE TO QUIT",255,0,0,255);
 
 
 
 
 			SDL_RenderPresent(renderer);
 		}
+		bool kill;
 };

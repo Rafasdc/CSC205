@@ -97,12 +97,12 @@ public:
 				if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
 					ball_direction.x = -ball_direction.x;
 					new_position.x = box->x1-radius-1;
-					printf("left edge\n");
+					//printf("left edge\n");
 					box->hits++;
 				}
 			} else if (ball_position.x >= box->x2-radius && new_position.x <= box->x2+radius){
 				if (new_position.y >= box->y1 - radius && new_position.y <= box->y2 + radius){
-					printf("right edge\n");
+					//printf("right edge\n");
 					ball_direction.x = -ball_direction.x;
 					new_position.x = box->x2+radius+1;
 					box->hits++;
@@ -111,7 +111,7 @@ public:
 			} else if (ball_position.y >= box->y2 - radius && new_position.y <= box->y2+radius){
 
 				if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
-					printf("bottom\n");
+					//printf("bottom\n");
 					ball_direction.y = -ball_direction.y;
 					new_position.y = box->y2+radius+1;
 					box->hits++;
@@ -119,7 +119,7 @@ public:
 			} else if (ball_position.y <= box->y1 + radius && new_position.y >= box->y1-radius){
 
 				if ((new_position.x >= box->x1 - radius  && new_position.x <= box->x2 + radius)) {
-					printf("top\n");
+					//printf("top\n");
 					ball_direction.y = -ball_direction.y;
 					new_position.y = box->y1-radius-1;
 					box->hits++;
@@ -131,21 +131,19 @@ public:
 		}
 	}
 
-	void ball_ball_col(Ball ball){
-		Vector2d R = ball_position - ball.ball_position;
+	void ball_ball_col(Ball* ball){
+		Vector2d R = ball_position - ball->ball_position;
 		int R_distance = sqrt(R.x*R.x + R.y*R.y);
 		Vector2d n = R/R_distance;
-		if(R_distance < radius + ball.radius){
-			ball_direction = ball.ball_direction;
-			ball.ball_direction = ball_direction;
-			ball_position = ball_position + ball_direction;
-			ball.ball_position = ball.ball_position + ball.ball_direction;
+		if(R_distance < radius + ball->radius){
+			ball_direction = -ball_direction;
+			ball->ball_direction = -ball->ball_direction;
+			//ball_position = ball_position + ball_direction;
+			//ball.ball_position = ball.ball_position + ball.ball_direction;
 			//printf("ball velocity is %d\n", ball->velocity);
 
-			/*
-			ball_direction.x = (2*ball->r*ball->velocity)/(radius+ball->radius);
-			ball_direction.y = (2*ball->r*ball->velocity)/(radius+ball->radius);
-			*/
+
+
 
 		}
 	}

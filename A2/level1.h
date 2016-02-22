@@ -18,51 +18,51 @@ using namespace std;
 //C
 //top to bottom
 //Box brick1(100,300,100,350,145,173,78,255);
-Box brick1(100,200,100,125,145,173,78,255,96,0,16,8,1);
-Box brick2(100,125,130,205,145,173,78,255,96,0,16,8,1);
-Box brick3(100,125,210,285,145,173,78,255,96,0,16,8,1);
-Box brick4(100,200,290,315,145,173,78,255,96,0,16,8,1);
+Box brick1(100,200,100,125,145,173,78,255,96,0,16,8,1,true);
+Box brick2(100,125,130,205,145,173,78,255,96,0,16,8,1,true);
+Box brick3(100,125,210,285,145,173,78,255,96,0,16,8,1,true);
+Box brick4(100,200,290,315,145,173,78,255,96,0,16,8,1,true);
 
 //S
 //bottom to top
-Box brick5(250,375,290,315,203,38,38,255,33,0,16,8,1);
-Box brick6(350,375,240,285,203,38,38,255,33,0,16,8,1);
-Box brick7(250,375,210,235,203,38,38,255,33,0,16,8,1);
-Box brick8(250,275,130,205,203,38,38,255,33,0,16,8,1);
-Box brick9(250,375,100,125,203,38,38,255,33,0,16,8,1);
+Box brick5(250,375,290,315,203,38,38,255,33,0,16,8,1,true);
+Box brick6(350,375,240,285,203,38,38,255,33,0,16,8,1,true);
+Box brick7(250,375,210,235,203,38,38,255,33,0,16,8,1,true);
+Box brick8(250,275,130,205,203,38,38,255,33,0,16,8,1,true);
+Box brick9(250,375,100,125,203,38,38,255,33,0,16,8,1,true);
 
 //C
 //top to bottom
-Box brick10(425,525,100,125,145,173,78,255,96,0,16,8,1);
-Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1);
-Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1);
-Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1);
+Box brick10(425,525,100,125,145,173,78,255,96,0,16,8,1,true);
+Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1,true);
+Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1,true);
+Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1,true);
 
 //Lower Line
-Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3);
-Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3);
-Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3);
-Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3);
-Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3);
-Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3);
-Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3);
-Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3);
-Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3);
-Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3);
-Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3);
-Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3);
-Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3);
-Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3);
-Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3);
+Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3, true);
 
 
 //Play
-Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1);
+Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1, true);
 
 
 //Ball
-Ball ball(400,571,135,135, 7,250, 255,67,55,255);
-Ball arb(25,25,135,135, 7,250, 0,255,55,255);
+Ball ball(400,569,135,135, 7,225, 255,67,55,255);
+Ball arb(70,530,-100,-100, 7,225, 0,255,55,255);
 
 //line right
 Line line_right(400,580,420,550,255,255,255,255);
@@ -72,7 +72,7 @@ Line line_left(400,580,380,550,255,255,255,255);
 
 
 std::vector<Box *> BrickList;
-std::vector<Ball> BallList;
+std::vector<Ball *> BallList;
 
 
 class Level1{
@@ -87,7 +87,6 @@ public:
 		key_d = false;
 		first = true;
 		BrickList.push_back(&brick1);
-		/*
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
 		BrickList.push_back(&brick4);
@@ -115,7 +114,7 @@ public:
 		BrickList.push_back(&brick26);
 		BrickList.push_back(&brick27);
 		BrickList.push_back(&brick28);
-		*/
+
 
 
 	}
@@ -161,7 +160,7 @@ public:
 			frame_number++;
 
 			if (ball.hit_bottom){
-				return -1;
+				//return -1;
 			}
 
 			if (BrickList.size() == 0){
@@ -180,6 +179,9 @@ public:
 	void set_keyboard(){
 		play_keyboard = true;
 	}
+	void set_2_balls(){
+		balls_2 = true;
+	}
 
 
 private:
@@ -187,6 +189,7 @@ private:
 	void handle_key_down2(SDL_Keycode key){
 		if (key == SDLK_SPACE){
 			ball.start = true;
+			arb.start = true;
 			first = false;
 		}else if (key == SDLK_r){
 
@@ -202,15 +205,16 @@ private:
 
 			if(play_keyboard){
 				if (first){
-					ball.ball_position.x -=15;
-					line_right.x1 -= 15;
-					line_right.x2 -= 15;
-					line_left.x1 -= 15;
-					line_left.x2 -= 15;
+					ball.ball_position.x -=20;
+					line_right.x1 -= 20;
+					line_right.x2 -= 20;
+					line_left.x1 -= 20;
+					line_left.x2 -= 20;
+					arb.ball_position.x= 70;
 
 				}
-				play.x1 -= 15;
-				play.x2 -= 15;
+				play.x1 -= 20;
+				play.x2 -= 20;
 			}
 
 
@@ -220,34 +224,38 @@ private:
 			key_d = true;
 			if (play_keyboard){
 				if (first){
-					ball.ball_position.x +=15;
-					line_right.x1 += 15;
-					line_right.x2 += 15;
-					line_left.x2 += 15;
-					line_left.x1 += 15;
+					ball.ball_position.x +=20;
+					line_right.x1 += 20;
+					line_right.x2 += 20;
+					line_left.x2 += 20;
+					line_left.x1 += 20;
+					arb.ball_position.x= 750;
 				}
-				play.x1 += 15;
-				play.x2 += 15;
+				play.x1 += 20;
+				play.x2 += 20;
 			}
 
 
 		} else if (key == SDLK_b){
+			/*
 			if (!first){
 				arb.start = true;
 				BallList.push_back(arb);
 			}
+			*/
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
 		if (button == SDL_BUTTON_LEFT){
 			ball.start = true;
 			first = false;
+			arb.start = true;
 		}
 	}
 	void handle_mouse_up2(int x, int y, int button){
 	}
 	void handle_mouse_moved2(int x, int y){
-		printf("x is %d, y is %d\n", x,y);
+		//printf("x is %d, y is %d\n", x,y);
 		mouse_x = x;
 
 		if (play_mouse){
@@ -272,13 +280,17 @@ private:
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 
-		for (int k = 0; k < BallList.size(); k++){
-					BallList[k].move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
-					BallList[k].screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
+		if (balls_2){
+			arb.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
+			arb.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		}
+
+		//arb.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
+		//arb.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 
 		for (int k = 0; k < BrickList.size(); k++){
 					(ball.ball_rectangle_col(BrickList[k]));
+					(arb.ball_rectangle_col(BrickList[k]));
 					if(BrickList[k]->hits ==1 && BrickList[k]->hits_to_destroy ==1){
 						BrickList.erase(BrickList.begin()+k);
 					}else if (BrickList[k]->hits ==1 && BrickList[k]->hits_to_destroy == 3){
@@ -292,17 +304,14 @@ private:
 
 		if (!first){
 			play.ball_intersection(&ball.new_position, &ball.ball_position,ball.radius,&ball.ball_direction);
+			play.ball_intersection(&arb.new_position, &arb.ball_position,arb.radius,&arb.ball_direction);
 		}
-
-		for(int i = 0; i < BallList.size(); i++){
-			ball.ball_ball_col(BallList[i]);
-			for (int j = 1; j < BallList.size(); j++){
-				BallList[i].ball_ball_col(BallList[j]);
-			}
+		if (balls_2){
+			ball.ball_ball_col(&arb);
 		}
 
 
-		SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
 		SDL_RenderClear(renderer);
 
 
@@ -310,24 +319,28 @@ private:
 		if (!play_mouse && first && mouse_x < CANVAS_SIZE_X/2){
 			ball.set_direction(135,135);
 			line_left.draw(renderer);
+			arb.ball_position.x= 70;
 		} else if (!play_mouse && first) {
 			ball.set_direction(45,45);
 			line_right.draw(renderer);
+			arb.ball_position.x= 750;
 
 		}
 
 		if (!play_keyboard && key_a && first){
 			ball.set_direction(135,135);
 			line_left.draw(renderer);
+			arb.ball_position.x= 70;
 		} else if (!play_keyboard && key_d && first) {
 			ball.set_direction(45,45);
 			line_right.draw(renderer);
+			arb.ball_position.x= 750;
 
 		}
 
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
-		for (int k = 0; k < BallList.size(); k++){
-					BallList[k].draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
+		if (balls_2){
+			arb.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
 		}
 
 
@@ -342,7 +355,7 @@ private:
 
 		SDL_RenderPresent(renderer);
 	}
-	bool first, play_mouse, play_keyboard, key_a, key_d;
+	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2;
 	int mouse_x;
 };
 

@@ -44,17 +44,17 @@ int main(){
 	bool quit = false;
 
 
-	while(!quit){
-		menu.frame_loop_menu(renderer, &level1);
-		int won = level1.frame_loop2(renderer);
-		if (won == 1){
-			win.frame_loop_win(renderer);
-		} else if (won == -1){
-			lose.frame_loop_lose(renderer);
-		} else {
-			quit = true;
-		}
+
+	menu.frame_loop_menu(renderer, &level1);
+	int won = level1.frame_loop2(renderer);
+	if (won == 1){
+		win.frame_loop_win(renderer);
+	} else if (won == -1){
+		lose.frame_loop_lose(renderer);
+	} else {
+		exit(0);
 	}
+
 
 	
 
