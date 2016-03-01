@@ -115,7 +115,7 @@ private:
 		int numVerts = 8;
 		tr.fillPolygon(vx,vy,numVerts, 64,224,0, 255);
 		/*
-		SDL_Surface* grass = SDL_LoadBMP("index.bmp");
+		SDL_Surface* grass = SDL_LoadBMP("leaf.bmp");
 		tr.fillTexturePolygon(vx,vy,numVerts,grass);
 		SDL_FreeSurface(grass);
 		*/
@@ -136,11 +136,16 @@ private:
 		tr.drawRectangle(-1,0,1,h,95,68,4,255);
 	}
 
-	void draw_pear(TransformedRenderer& tr){
+	void draw_banana(TransformedRenderer& tr){
 		float vx[] = {0,1.5,1,5,0.85,0,-1,-1.15,-1.6,-1.4};
 		float vy[] = {-0.45,0.05,1.2,2.5,3.35,2.9,2,1,0};
 		int numVerts = 9;
 		tr.fillPolygon(vx,vy,numVerts,204,255,51,255);
+		/*
+		SDL_Surface* banana = SDL_LoadBMP("banana.bmp");
+		tr.fillTexturePolygon(vx,vy,numVerts,banana);
+		SDL_FreeSurface(banana);
+		*/
 		tr.drawPolygon(vx,vy,numVerts,204,175,51,255);
 	}
 
@@ -149,6 +154,11 @@ private:
 		float vy[] = {0,-1,0.95,2.4,3.3,3,3.3,2.4,0.95,-1};
 		int numVerts = 10;
 		tr.fillPolygon(vx,vy,numVerts,255,59,48,255);
+		/*
+		SDL_Surface* apple = SDL_LoadBMP("apple.bmp");
+		tr.fillTexturePolygon(vx,vy,numVerts,apple);
+		SDL_FreeSurface(apple);
+		*/
 		tr.drawPolygon(vx,vy,numVerts,200,59,48,255);
 	}
 
@@ -164,6 +174,7 @@ private:
 				//draw stem at pos (0,0) and multiply the local coordinate transform
 				//on right by translation by (0,h), h is height of stem
 				draw_stem(tr,7);
+				//draw_stem(tr,7);
 				viewportTransform *= Translation(0, 7);
 				break;
 			case '+':
@@ -267,11 +278,14 @@ private:
 				break;
 			case 'p':
 				viewportTransform *=Rotation(25*M_PI/180);
+				break;
 			case 'R':
-				draw_pear(tr);
+				draw_banana(tr);
+				draw_banana(tr);
 				break;
 			case 'r':
 				draw_apple(tr);
+				//draw_apple(tr);
 				break;
 			case 't':
 				list.push_back(viewportTransform);
@@ -297,8 +311,21 @@ private:
 				handle_iteration(&system_string[i+1], renderer, viewportTransform, tr);
 				viewportTransform = list.back();
 				list.pop_back();
-
+				break;
+			case 'n':
+				viewportTransform.identity();
+				viewportTransform *= Translation(WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
+				viewportTransform *= Scale(1,-1);
+				viewportTransform *= Scale(WINDOW_SIZE_X/100.0,WINDOW_SIZE_Y/100.0);
+				break;
+			case 'O':
+				viewportTransform *= Translation(-50,0);
+				viewportTransform *= Rotation(90*M_PI/180);
+				break;
+			case 'D':
+				viewportTransform *= Translation(0, 50);
 			}
+
 
 
 			tr.set_transform(viewportTransform);
