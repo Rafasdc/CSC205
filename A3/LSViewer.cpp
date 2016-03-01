@@ -123,17 +123,17 @@ private:
 
 	}
 
-	void draw_stem(TransformedRenderer& tr){
-		tr.drawRectangle(-1,0,1,7,255,255,255,255);
-		float vx[] = {-1,1,1,-1};
-		float vy[] = {0,0,7,7};
-		tr.fillRectangle(-1,0,1,7,102,51,0,255);
+	void draw_stem(TransformedRenderer& tr, int h){
+		tr.drawRectangle(-1,0,1,h,255,255,255,255);
+		//float vx[] = {-1,1,1,-1};
+		//float vy[] = {0,0,7,7};
+		tr.fillRectangle(-1,0,1,h,102,51,0,255);
 		/*
 		SDL_Surface* trunk = SDL_LoadBMP("woodtexture.bmp");
 		tr.fillTexturePolygon(vx,vy,4,trunk);
 		SDL_FreeSurface(trunk);
 		*/
-		tr.drawRectangle(-1,0,1,7,95,68,4,255);
+		tr.drawRectangle(-1,0,1,h,95,68,4,255);
 	}
 
 	void handle_iteration(string system_string, SDL_Renderer *renderer,
@@ -147,7 +147,7 @@ private:
 			case 'T':
 				//draw stem at pos (0,0) and multiply the local coordinate transform
 				//on right by translation by (0,h), h is height of stem
-				draw_stem(tr);
+				draw_stem(tr,7);
 				/*
 				viewportTransform.identity();
 
@@ -210,7 +210,61 @@ private:
 				viewportTransform = (list.back());
 				list.pop_back();
 				break;
+			case 'A':
+				draw_stem(tr,10);
+				viewportTransform *= Translation(0,10);
+				tr.set_transform(viewportTransform);
+				draw_leaf(tr);
+				break;
+			case 'B':
+				draw_stem(tr,10);
+				viewportTransform *= Translation(0,10);
+				break;
+			case '(':
+				list.push_back(viewportTransform);
+				viewportTransform *= Rotation(315*M_PI/180);
+				break;
+			case ')':
+				viewportTransform = (list.back());
+				list.pop_back();
+				viewportTransform *= Rotation(45*M_PI/180);
+				break;
+			case 'K':
+				//setup for Koch Curve
+				//viewportTransform *= Rotation(180*M_PI/180);
+				//viewportTransform *= Translation(0,75);
+			case 'F':
+				tr.fillRectangle(-1,0,1,1,102,51,0,255);
+				tr.drawRectangle(-1,0,1,1,102,51,0,255);
+				viewportTransform *= Translation(0,1);
+				break;
+			case '#':
+				viewportTransform *= Rotation(270*M_PI/180);
+				break;
+			case '_':
+				viewportTransform *= Rotation(90*M_PI/180);
+				break;
+			case 'G':
+				tr.fillRectangle(-1,0,1,1,102,51,0,255);
+				tr.drawRectangle(-1,0,1,1,102,51,0,255);
+				viewportTransform *= Translation(0,1);
+				break;
+			case ',':
+				viewportTransform *= Rotation(240*M_PI/180);
+				break;
+			case '.':
+				viewportTransform *= Rotation(120*M_PI/180);
+				break;
+			case 'M':
+				viewportTransform *=Translation(0,1.5);
+				break;
+			case 'm':
+				viewportTransform *=Rotation(335*M_PI/180);
+				break;
+			case 'p':
+				viewportTransform *=Rotation(25*M_PI/180);
 			}
+
 			tr.set_transform(viewportTransform);
 		}
 	}
