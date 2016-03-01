@@ -114,25 +114,21 @@ private:
 		float vy[] = {0,0.75,1.75,2.75,4.0,2.75, 1.75,0.75};
 		int numVerts = 8;
 		tr.fillPolygon(vx,vy,numVerts, 64,224,0, 255);
-		/*
-		SDL_Surface* grass = SDL_LoadBMP("index.bmp");
+		SDL_Surface* grass = SDL_LoadBMP("leaf.bmp");
 		tr.fillTexturePolygon(vx,vy,numVerts,grass);
 		SDL_FreeSurface(grass);
-		*/
 		tr.drawPolygon(vx,vy,numVerts, 64,128,0, 255);
 
 	}
 
 	void draw_stem(TransformedRenderer& tr, int h){
 		tr.drawRectangle(-1,0,1,h,255,255,255,255);
-		//float vx[] = {-1,1,1,-1};
-		//float vy[] = {0,0,7,7};
+		float vx[] = {-1,1,1,-1};
+		float vy[] = {0,0,7,7};
 		tr.fillRectangle(-1,0,1,h,102,51,0,255);
-		/*
 		SDL_Surface* trunk = SDL_LoadBMP("woodtexture.bmp");
 		tr.fillTexturePolygon(vx,vy,4,trunk);
 		SDL_FreeSurface(trunk);
-		*/
 		tr.drawRectangle(-1,0,1,h,95,68,4,255);
 	}
 
@@ -158,11 +154,12 @@ private:
 			switch(system_string[i]){
 			case 'L' :
 				draw_leaf(tr);
-				//draw_leaf(tr);
+				draw_leaf(tr);
 				break;
 			case 'T':
 				//draw stem at pos (0,0) and multiply the local coordinate transform
 				//on right by translation by (0,h), h is height of stem
+				draw_stem(tr,7);
 				draw_stem(tr,7);
 				viewportTransform *= Translation(0, 7);
 				break;
