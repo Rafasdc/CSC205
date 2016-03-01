@@ -79,8 +79,11 @@ public:
 		float vx[] = {x1,x2,x2,x1};
 		float vy[] = {y1,y1,y2,y2};
 		fillPolygon(vx,vy,4, r,g,b,a );
+
 	}
 	
+
+
 	void drawPolygon(const float *vx, const float *vy, int n, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
 		
 		Sint16* new_vx = ALLOCATE_SINT16_ARRAY(n);
@@ -105,6 +108,20 @@ public:
 		
 		filledPolygonRGBA(renderer, new_vx, new_vy,n,r,g,b,a);
 		
+		DEALLOCATE_SINT16_ARRAY(new_vx);
+		DEALLOCATE_SINT16_ARRAY(new_vy);
+	}
+
+	void fillTexturePolygon(const float *vx, const float *vy, int n, SDL_Surface* texture){
+		Sint16* new_vx = ALLOCATE_SINT16_ARRAY(n);
+		Sint16* new_vy = ALLOCATE_SINT16_ARRAY(n);
+
+		for(int i = 0; i < n; i++)
+			TransformVector(vx[i],vy[i],new_vx[i],new_vy[i]);
+
+		texturedPolygon(renderer, new_vx, new_vy,n,texture,0,0);
+
+
 		DEALLOCATE_SINT16_ARRAY(new_vx);
 		DEALLOCATE_SINT16_ARRAY(new_vy);
 	}

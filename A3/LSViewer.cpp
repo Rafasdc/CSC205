@@ -15,8 +15,10 @@
 
 using namespace std;
 
-static const int WINDOW_SIZE_X = 800;
-static const int WINDOW_SIZE_Y = 600;
+//static const int WINDOW_SIZE_X = 800;
+//static const int WINDOW_SIZE_Y = 600;
+int WINDOW_SIZE_X = 800;
+int WINDOW_SIZE_Y = 600;
 
 
 class A3Canvas{
@@ -25,6 +27,7 @@ public:
 	A3Canvas(LSystem* L){
 		LS_iterations = 0;
 		this->L_system = L;
+
 	}
 
 	
@@ -49,15 +52,25 @@ public:
 						handle_key_down(e.key.keysym.sym);
 						draw(r,delta_ms);
 						break;
+					case SDL_WINDOWEVENT:
+						switch(e.window.event){
+						case SDL_WINDOWEVENT_SIZE_CHANGED:
+							printf("size changed\n");
+							WINDOW_SIZE_X = e.window.data1;
+							WINDOW_SIZE_Y = e.window.data2;
+							draw(r,0);
+						}
+						break;
 					default:
 						break;
 				}
 			}
 			
 			
-			
+
 		}
 		
+
 	}
 private:
 	int LS_iterations;
@@ -101,7 +114,105 @@ private:
 		float vy[] = {0,0.75,1.75,2.75,4.0,2.75, 1.75,0.75};
 		int numVerts = 8;
 		tr.fillPolygon(vx,vy,numVerts, 64,224,0, 255);
+		/*
+		SDL_Surface* grass = SDL_LoadBMP("index.bmp");
+		tr.fillTexturePolygon(vx,vy,numVerts,grass);
+		SDL_FreeSurface(grass);
+		*/
 		tr.drawPolygon(vx,vy,numVerts, 64,128,0, 255);
+
+	}
+
+	void draw_stem(TransformedRenderer& tr){
+		tr.drawRectangle(-1,0,1,7,255,255,255,255);
+		float vx[] = {-1,1,1,-1};
+		float vy[] = {0,0,7,7};
+		tr.fillRectangle(-1,0,1,7,102,51,0,255);
+		/*
+		SDL_Surface* trunk = SDL_LoadBMP("woodtexture.bmp");
+		tr.fillTexturePolygon(vx,vy,4,trunk);
+		SDL_FreeSurface(trunk);
+		*/
+		tr.drawRectangle(-1,0,1,7,95,68,4,255);
+	}
+
+	void handle_iteration(string system_string, SDL_Renderer *renderer,
+			Matrix3& viewportTransform, TransformedRenderer& tr){
+		for(int i = 0; i < system_string.size(); i++){
+			switch(system_string[i]){
+			case 'L' :
+				draw_leaf(tr);
+				draw_leaf(tr);
+				break;
+			case 'T':
+				//draw stem at pos (0,0) and multiply the local coordinate transform
+				//on right by translation by (0,h), h is height of stem
+				draw_stem(tr);
+				/*
+				viewportTransform.identity();
+
+				viewportTransform *= Scale(1,-1);
+				viewportTransform *= Scale(WINDOW_SIZE_X/100.0,WINDOW_SIZE_Y/100.0);
+				viewportTransform *= Rotation(30*M_PI/180);
+				*/
+				viewportTransform *= Translation(0, 7);
+				break;
+			case '+':
+				//local coordinate mult on right by c-clockwise 30 degrees
+				/*
+				viewportTransform.identity();
+				viewportTransform *= Translation(WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
+				viewportTransform *= Scale(1,-1);
+				viewportTransform *= Scale(WINDOW_SIZE_X/100.0,WINDOW_SIZE_Y/100.0);
+				*/
+				viewportTransform *= Rotation(30*M_PI/180);
+				break;
+			case '-':
+				//local coordinate mult on right by clockwise rotation of 30 degrees.
+				/*
+				viewportTransform.identity();
+				viewportTransform *= Translation(WINDOW_SIZE_X/2, WINDOW_SIZE_Y);
+				viewportTransform *= Scale(1,-1);
+				viewportTransform *= Scale(WINDOW_SIZE_X/100.0,WINDOW_SIZE_Y/100.0);
+				*/
+				viewportTransform *= Rotation(330*M_PI/180);
+				break;
+			case 's':
+				//multiply local coordinate transform on right by scale of (0.9,0.9)
+				viewportTransform *= Scale(0.9,0.9);
+				break;
+			case 'S':
+				//multiply local coordinate transform on right by scale of (1/0.9, 1/0.9);
+				viewportTransform *= Scale(1/0.9,1/0.9);
+				break;
+			case 'h':
+				//multiply local coordinate transform on right by scale of (0.9,1)
+				viewportTransform *= Scale(0.9,1);
+				break;
+			case 'H':
+				//multiply local coordinate transform on right by scale of (1/0.9,1)
+				viewportTransform *= Scale(1/0.9,1);
+				break;
+			case 'v':
+				//multiply local coordinate transform on right by scale of (1,0.9)
+				viewportTransform *= Scale(1,0.9);
+				break;
+			case 'V':
+				//multiply local coordinate transform on right by scale of (1,1/0.9)
+				viewportTransform *= Scale(1,1/0.9);
+				break;
+			case '[':
+				//save current local coordinate transform
+				list.push_back(viewportTransform);
+				break;
+			case ']':
+				//restore the last coordinate transform that was saved
+				viewportTransform = (list.back());
+				list.pop_back();
+				break;
+			}
+			tr.set_transform(viewportTransform);
+		}
 	}
 
 
@@ -115,6 +226,8 @@ private:
 		cerr << "Drawing with " << LS_iterations << " iterations." << endl;
 		cerr << "System string: " << ls_string << endl;
 
+
+
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
@@ -127,13 +240,26 @@ private:
 		
 		tr.set_transform(viewportTransform);
 		
-		//Replace this with actual drawing code...
-		draw_leaf(tr);
+		//Replace this with actual drawing code..
+		/*
+		if (LS_iterations == 1){
+			viewportTransform.identity();
+			viewportTransform *= Translation(WINDOW_SIZE_X/2, WINDOW_SIZE_Y/2);
+			viewportTransform *= Scale(1,-1);
+			viewportTransform *= Scale(WINDOW_SIZE_X/100.0,WINDOW_SIZE_Y/100.0);
+			tr.set_transform(viewportTransform);
+		}
+
+		*/
+		//draw_leaf(tr);
+		handle_iteration(ls_string, renderer, viewportTransform, tr);
 		
 	
 		SDL_RenderPresent(renderer);
 	}
+	std::vector<Matrix3>list;
 };
+
 
 int main(int argc, char** argv){
 
@@ -152,9 +278,9 @@ int main(int argc, char** argv){
 	SDL_Window* window = SDL_CreateWindow("CSC 205 A3",
                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               WINDOW_SIZE_X, WINDOW_SIZE_Y, 
-							  SDL_WINDOW_SHOWN);
+							  SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 							  
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0/*SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED*/);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 
 	//Initialize the canvas to solid green
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
