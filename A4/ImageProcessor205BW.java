@@ -17,7 +17,7 @@ import java.io.File;
 public class ImageProcessor205BW {
 
 	static int[] compute_histogram(int[][] pixels, int width, int height){
-		int h[] = null;
+		int h[] = new int[256];
 		for (int x =0; x < width -1; x++){
 			for (int y = 0; y < height-1; y++){
 				h[pixels[x][y]] = h[pixels[x][y]]+1;
@@ -29,8 +29,8 @@ public class ImageProcessor205BW {
 	static int[] match_histrograms(int[][] pixels, int width,  int height, int Href[], int nref){
 		int n = width * height;
 		int r = n/nref;
-		int h[] = null; //non cumulative histogram of pixels array
-		int F[] = null;
+		int h[] = compute_histogram(pixels,width,height); //non cumulative histogram of pixels array
+		int F[] = new int[256];
 		int i = 0;
 		int j = 0; 
 		int c = 0;
@@ -46,6 +46,22 @@ public class ImageProcessor205BW {
 		return F; //integer array
 	}
 	
+	static int[] cumulative_hist(int[][] pixels, int width, int height){
+		int h[] = new int[256];
+		int H[] = new int[256];
+		for(int x = 0; x < width -1; x++){
+			for(int y =0; y < height-1; y++){
+				H[pixels[x][y]] = H[pixels[x][y]]+1;
+			}
+		}
+		H[0] = h[0];
+		for (int i = 1; i < 255; i++){
+			H[i] = H[i-1] + h[i];
+		}
+		return H;
+		
+	}
+	
 	
 	
 	
@@ -53,12 +69,17 @@ public class ImageProcessor205BW {
 		int width = inputPixels.length;
 		int height = inputPixels[0].length;
 		
-		int[] href = compute_histogram(inputPixels,width,height);
+		int[] href = cumulative_hist(inputPixels,width,height);
+		int[] F = match_histrograms(inputPixels,width,height,href,256);
 		/* Placeholder: invert the intensity values */
-		for (int x = 0; x < width; x++)
-			for (int y = 0; y < height; y++)
+		for (int x = 0; x < width; x++){
+			for (int y = 0; y < height; y++){
+				
+			}
+		}
+			
 				//inputPixels[x][y] = 255-inputPixels[x][y];
-				inputPixels[x][y] = href[x];
+				//inputPixels[x][y];
 		return inputPixels;
 	}
 	
