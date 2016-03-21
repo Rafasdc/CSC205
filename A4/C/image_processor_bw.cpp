@@ -58,32 +58,34 @@ void process_image(PNG_Canvas_BW& image){
 	//Make a new image canvas for the output to avoid conflicts
 	PNG_Canvas_BW outputImage(width,height);
 	
-	for (int y = 1; y < height-1; y++){
-		for (int x = 1; x < width-1; x++){
-			double sum = 0;
+	for (int y = 1; y < height-2; y++){
+		for (int x = 1; x < width-2; x++){
+			int sum = 0;
 			for (int j = -1; j <= 1; j++){
 				for (int i = -1; i <= 1; i++){
-					int p = image[x+i][y+j];
-					double c = laplace[j+1][i+1];
-					sum = sum + c * p;
+					int p = image.get_pixel(x+i,y+j);
+					int c = laplace[j+1][i+1];
+					sum += c * p;
 				}
 			}
 			//inputPixels[x][y] = F[inputPixels[x][y]];
-			//int q = (int) round(sum);
-			//if (q < 0) q = 0;
-			//if (q > 255) q = 255;
-			//outputImage.set_pixel(x,y,q);
-
+			int q = sum;
+			if (q < 0) q = 0;
+			if (q > 255) q = 255;
+			outputImage.set_pixel(x,y,q);
 		}
 	}
 
-	/*
+
+
 	for (int x = 0; x < width; x++){
 		for (int y = 0; y< height; y++){
-			outputImage[x][y] = image.get_pixel(x,y) - 0.25*outputImage.get_pixel(x,y);
+			int s = image.get_pixel(x,y) - 0.5*outputImage.get_pixel(x,y);
+			outputImage.set_pixel(x,y,s);
 		}
 	}
-	*/
+
+
 			
 			
 
