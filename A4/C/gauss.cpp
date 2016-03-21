@@ -27,21 +27,19 @@ void process_image(PNG_Canvas_BW& image){
 	for (int x=0; x< 5; x++){
 		for (int y = 0; y < 5; y++){
 			kernel[x][y] = exp((-(x*x)+(y*y))/(2*sigma*sigma));
-					//exp(-0.5 * (pow((x-2.5)/sigma, 2.0) + pow((y-2.5)/sigma,2.0)))/(2 * M_PI * sigma * sigma);
 			sum += kernel[x][y];
 		}
 	}
-	//double sum = 0.0;
 
+	/*
 	for (int x = 0; x<5; x++){
 		for(int y = 0; y < 5; y++){
-			//kernel[x][y] /= sum;
 			printf(" %f ",kernel[x][y]);
 		}
 		printf("\n");
 	}
-
 	printf("%f\n",sum);
+	*/
 
 	int K = 2;
 	double s = 1.0/sum;
