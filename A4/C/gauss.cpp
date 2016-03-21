@@ -15,39 +15,31 @@
 
 using namespace std;
 
-int* compute_histogram(PNG_Canvas_BW pixels, int width, int height){
-	int *h = 0;
-	for (int x =0; x < width -1; x++){
-		for (int y = 0; y < height-1; y++){
-			h[pixels.get_pixel(x,y)] = h[pixels.get_pixel(x,y)]+1;
-		}
-	}
-	return h;
-}
-/*
-int match_histrograms(PNG_Canvas_BW pixels, int width,  int height, int Href[][], int nref){
-	int n = width * height;
-	int r = n/nref;
-	int h[][] = 0; //non cumulative histogram of pixels array
-	int F[256] = 0;
-	int i, j , c = 0;
-	while (i < 256) {
-		if (c<= r * Href[j]){
-			c = c + h[i];
-			F[i] = j;
-			i = i + 1;
-		} else {
-			j++;
-		}
-	}
-	return F; //integer array
-}
-*/
+
 
 void process_image(PNG_Canvas_BW& image){
 	int width = image.get_width();
 	int height = image.get_height();
 	
+	double sigma = 1;
+	double kernel[5][5];
+	double sum = 0;
+	for (int x=0; x< 5; x++){
+		for (int y = 0; y < 5; y++){
+			kernel[x][y] = exp(-0.5 * (pow((x-2.5)/sigma, 2.0) + pow((y-2.5)/sigma,2.0)))/(2 * M_PI * sigma * sigma);
+			sum += kernel[x][y];
+		}
+	}
+	//double sum = 0.0;
+	for (int x = 0; x<5; x++){
+		for(int y = 0; y < 5; y++){
+			kernel[x][y] /= sum;
+			printf(" %f ",kernel[x][y]);
+		}
+		printf("\n");
+	}
+	//printf("%f.5\n",sum);
+
 	int laplace[3][3] = {
 					{0, 1, 0},
 					{1,-4, 1},
@@ -76,12 +68,12 @@ void process_image(PNG_Canvas_BW& image){
 		}
 	}
 
-	PNG_Canvas_BW imagePrime(width,height);
+
 
 	for (int x = 0; x < width; x++){
 		for (int y = 0; y< height; y++){
 			int s = image.get_pixel(x,y) - 0.5*outputImage.get_pixel(x,y);
-			imagePrime.set_pixel(x,y,s);
+			outputImage.set_pixel(x,y,s);
 		}
 	}
 
@@ -89,7 +81,7 @@ void process_image(PNG_Canvas_BW& image){
 			
 			
 
-	image = imagePrime;
+	image = outputImage;
 }
 
 
