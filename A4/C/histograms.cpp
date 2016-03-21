@@ -15,34 +15,7 @@
 
 using namespace std;
 
-int* compute_histogram(PNG_Canvas_BW pixels, int width, int height){
-	int *h = 0;
-	for (int x =0; x < width -1; x++){
-		for (int y = 0; y < height-1; y++){
-			h[pixels.get_pixel(x,y)] = h[pixels.get_pixel(x,y)]+1;
-		}
-	}
-	return h;
-}
-/*
-int match_histrograms(PNG_Canvas_BW pixels, int width,  int height, int Href[][], int nref){
-	int n = width * height;
-	int r = n/nref;
-	int h[][] = 0; //non cumulative histogram of pixels array
-	int F[256] = 0;
-	int i, j , c = 0;
-	while (i < 256) {
-		if (c<= r * Href[j]){
-			c = c + h[i];
-			F[i] = j;
-			i = i + 1;
-		} else {
-			j++;
-		}
-	}
-	return F; //integer array
-}
-*/
+
 
 void process_image(PNG_Canvas_BW& image){
 	int width = image.get_width();
@@ -94,7 +67,7 @@ void process_image(PNG_Canvas_BW& image){
 	int c = 0;
 	int j = 0;
 	while (i < 256){
-		if (c <= gx[j]){
+		if (c <= normal[j]){
 			c += h[i];
 			F[i] = j;
 			i = i + 1;
