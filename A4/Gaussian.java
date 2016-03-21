@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 
-public class ImageProcessor205BW {
+public class Gaussian {
 
 	static int[] compute_histogram(int[][] pixels, int width, int height){
 		int h[] = new int[256];
@@ -88,17 +88,19 @@ public class ImageProcessor205BW {
 		return F; //integer array
 	}
 
-	static int[] PDF(int[] h){
-		int mean = 128;
-		int sd = 50;
-		int sd2 = sd*sd;
-		double sdqrt2pi = sd * Math.sqrt(2*Math.PI);
-		int [] P = new int[256];
-		for (int i = 0; i < h.length; i++){
-			
+	static float[][] gaussian(){
+		float sigma = 1.0f;
+		float twosigma2 = 2 * sigma * sigma;
+		float[][] kernel = new float[5][5];
+		float sum = 0;
+		for (int x = 0; x < kernel.length; x++){
+			for(int y = 0; y < kernel.length; y++){
+				kernel[x][y] = (float) Math.exp( -((x*x)+(y*y))/twosigma2);
+				sum += kernel[x][y];
+			}
 		}
-		return P;
-		
+
+		return kernel;
 	}
 	
 
@@ -112,16 +114,24 @@ public class ImageProcessor205BW {
 		
 		int[] h = compute_histogram(inputPixels,width,height);
 		int[] href = cumulative_hist(inputPixels,width,height);
-		int[] test = PDF(href);
 		double a = 0;
 		
-		
+		float [][] gaussian = gaussian();
+		double sum = 0;
+		for (int i = 0; i < gaussian.length; i++){
+			for (int j=0; j < gaussian.length; j++){
+				sum += gaussian[i][j];
+				System.out.print(gaussian[i][j]+ " ");
+			}
+			System.out.print("\n");
+		}
+		System.out.println("sum is" + sum);
 		//int[] F = match_histrograms(inputPixels,width,height,test,256);
-		int[] F = matchHistograms(h,test);
+		//int[] F = matchHistograms(h,test);
 		
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
-				inputPixels[x][y] = F[inputPixels[x][y]];
+				//inputPixels[x][y] = F[inputPixels[x][y]];
 			}
 		}
 			
