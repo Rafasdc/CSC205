@@ -48,11 +48,60 @@ void process_image(PNG_Canvas_BW& image){
 	int width = image.get_width();
 	int height = image.get_height();
 	
-	int laplace[3][3] = {
-					{0, 1, 0},
-					{1,-4, 1},
-					{0, 1, 0}
-	};
+
+	//non-cumualtive hist
+	int h[256];
+	for (int x =0; x < width -1; x++){
+		for (int y = 0; y < height-1; y++){
+			h[image.get_pixel(x,y)] = h[image.get_pixel(x,y)]+1;
+		}
+	}
+	//cumulative hist
+	int H[256];
+	H[0] = h[0];
+	for (int a = 1; a < 255; a++){
+		H[a] = h[a-1] + h[a];
+	}
+
+	//gaussian distribution
+	double normal[256];
+	for (int x = 0; x< 256; x++){
+		int sigma = 50;
+		int m = 128;
+		float sigmasqr2pi = sigma * sqrt(2*M_PI);
+		float twosigma2 = 2 * sigma * sigma;
+		normal[x] = exp((-pow((x-m),2))/twosigma2)/(sigmasqr2pi);
+	}
+
+	//inversed bell curve
+	double gx[256];
+	for (int b = 0; b < 256; b ++){
+		int sigma = 50;
+		int m = 128;
+		float sigmasqr2pi = sigma * sqrt(2*M_PI);
+		float twosigma2 = 2 * sigma * sigma;
+		float gm = exp((-pow((m-m),2))/twosigma2)/(sigmasqr2pi);
+		gx[b] = gm - normal[b];
+		//printf("%f\n",normal[b]);
+	}
+
+
+	//histogram matching
+	int Href[256];
+	copy(H,H+256,Href);
+	int F[256];
+	int i = 0;
+	int c = 0;
+	int j = 0;
+	while (i < 256){
+		if (c <= gx[j]){
+			c += h[i];
+			F[i] = j;
+			i = i + 1;
+		} else {
+			j = j + 1;
+		}
+	}
 
 
 	//Make a new image canvas for the output to avoid conflicts
@@ -60,36 +109,15 @@ void process_image(PNG_Canvas_BW& image){
 	
 	for (int y = 1; y < height-2; y++){
 		for (int x = 1; x < width-2; x++){
-			int sum = 0;
-			for (int j = -1; j <= 1; j++){
-				for (int i = -1; i <= 1; i++){
-					int p = image.get_pixel(x+i,y+j);
-					int c = laplace[j+1][i+1];
-					sum += c * p;
-				}
-			}
-			//inputPixels[x][y] = F[inputPixels[x][y]];
-			int q = sum;
-			if (q < 0) q = 0;
-			if (q > 255) q = 255;
-			outputImage.set_pixel(x,y,q);
-		}
-	}
-
-	PNG_Canvas_BW imagePrime(width,height);
-
-	for (int x = 0; x < width; x++){
-		for (int y = 0; y< height; y++){
-			int s = image.get_pixel(x,y) - 0.5*outputImage.get_pixel(x,y);
-			imagePrime.set_pixel(x,y,s);
+			double s = F[image[x][y]];
+			outputImage.set_pixel(x,y,s);
 		}
 	}
 
 
 			
-			
 
-	image = imagePrime;
+	image = outputImage;
 }
 
 
