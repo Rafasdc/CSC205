@@ -15,37 +15,55 @@
 
 using namespace std;
 
+void histogram(PNG_Canvas_BW image, int width, int height, int h[]){
+	for (int x =0; x < width -1; x++){
+		for (int y = 0; y < height-1; y++){
+			h[image[x][y]] = h[image[x][y]]+1;
+		}
+	}
+}
 
+void cumu_histogram(PNG_Canvas_BW image, int width, int height, int H[]){
+	int h[256];
+	histogram(image, width, height, h);
+	H[0] = h[0];
+	for (int a = 1; a < 256; a++){
+		H[a] = h[a-1] + h[a];
+	}
+}
+
+
+
+void match_histograms(int F[], int h[],  int width, int height, int Href[], int nref ){
+	int n = width * height;
+	int r = n/nref;
+	//int h[256];
+	//histogram(image,width,height,h); //non cumulative histogram
+	printf("%d\n",r);
+	int i = 0;
+	int c = 0;
+	int j = 0;
+	while (i < 256){
+		if (c <= r*Href[j]){
+			c += h[i];
+			F[i] = j;
+			i = i + 1;
+		} else {
+			j = j + 1;
+		}
+	}
+}
 
 void process_image(PNG_Canvas_BW& image){
 	int width = image.get_width();
 	int height = image.get_height();
-	
 
-	//non-cumualtive hist
-	int h[256];
-	for (int x =0; x < width -1; x++){
-		for (int y = 0; y < height-1; y++){
-			h[image.get_pixel(x,y)] = h[image.get_pixel(x,y)]+1;
-		}
-	}
-	//cumulative hist
-	int H[256];
-	H[0] = h[0];
-	for (int a = 1; a < 255; a++){
-		H[a] = h[a-1] + h[a];
-	}
 
-	//gaussian distribution
-	double normal[256];
-	for (int x = 0; x< 256; x++){
-		int sigma = 50;
-		int m = 128;
-		float sigmasqr2pi = sigma * sqrt(2*M_PI);
-		float twosigma2 = 2 * sigma * sigma;
-		normal[x] = exp((-pow((x-m),2))/twosigma2)/(sigmasqr2pi);
-	}
 
+
+
+
+	/*
 	//inversed bell curve
 	double gx[256];
 	for (int b = 0; b < 256; b ++){
@@ -57,17 +75,52 @@ void process_image(PNG_Canvas_BW& image){
 		gx[b] = gm - normal[b];
 		//printf("%f\n",normal[b]);
 	}
+	*/
 
+	int h[256] = {0};
+	for (int x =0; x < width; x++){
+		for (int y = 0; y < height; y++){
+			h[image.get_pixel(x,y)] = h[image.get_pixel(x,y)]+1;
+		}
+	}
 
-	//histogram matching
-	int Href[256];
-	copy(H,H+256,Href);
-	int F[256];
+	int H[256] = {0};
+	for (int x =0; x < width; x++){
+		for (int y = 0; y < height; y++){
+			H[image[x][y]] = H[image[x][y]]+1;
+		}
+	}
+	H[0] = h[0];
+	for (int a = 1; a < 256; a++){
+		H[a] = H[a-1] + H[a];
+	}
+
+	//gaussian distribution
+	double normal[256] = {0};
+	int sigma = 50;
+	int m = 128;
+	float sigmasqr2pi = sigma * sqrt(2*M_PI);
+	float twosigma2 = 2 * sigma * sigma;
+	for (int x = 0; x< 256; x++){
+		normal[x] = exp((-pow((x-m),2))/twosigma2)/(sigmasqr2pi)*10000;
+		for(int y = 0; y < 256; y++){
+
+		}
+	}
+
+	for (int i = 0; i < 256; i++){
+		printf("%f\n",normal[i]);
+	}
+
+	int F[256] = {0};
+
+	int n = width * height;
+	int r = 1;
 	int i = 0;
 	int c = 0;
 	int j = 0;
 	while (i < 256){
-		if (c <= normal[j]){
+		if (c <= r*normal[j]){
 			c += h[i];
 			F[i] = j;
 			i = i + 1;
@@ -77,18 +130,22 @@ void process_image(PNG_Canvas_BW& image){
 	}
 
 
+
+
+
+
 	//Make a new image canvas for the output to avoid conflicts
 	PNG_Canvas_BW outputImage(width,height);
 	
-	for (int y = 1; y < height-2; y++){
-		for (int x = 1; x < width-2; x++){
-			double s = F[image[x][y]];
-			outputImage.set_pixel(x,y,s);
+	for (int y = 0; y < height; y++){
+		for (int x = 0; x < width; x++){
+			outputImage[x][y] = F[image[x][y]];
 		}
 	}
 
 
-			
+
+
 
 	image = outputImage;
 }

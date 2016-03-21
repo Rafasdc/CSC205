@@ -76,7 +76,7 @@ public class ImageProcessor205BW {
 		int i = 0;
 		int j = 0; 
 		int c = 0;
-		while (i < 256) {
+		while (i < 256 && j < 256) {
 			if (c <= r * Href[j]){
 				c = c + h[i];
 				F[i] = j;
@@ -88,16 +88,16 @@ public class ImageProcessor205BW {
 		return F; //integer array
 	}
 
-	static int[] PDF(int[] h){
-		int mean = 128;
-		int sd = 50;
-		int sd2 = sd*sd;
-		double sdqrt2pi = sd * Math.sqrt(2*Math.PI);
-		int [] P = new int[256];
-		for (int i = 0; i < h.length; i++){
-			
+	static double [] PDF(){
+		double normal[] = new double[256];
+		for (int x = 0; x< 256; x++){
+			float sigma = 50;
+			float m = 128;
+			double sigmasqr2pi = sigma * Math.sqrt(2*Math.PI);
+			float twosigma2 = 2 * sigma * sigma;
+			normal[x] = Math.exp(-(Math.pow((x-m),2))/twosigma2)/(sigmasqr2pi);
 		}
-		return P;
+		return normal;
 		
 	}
 	
@@ -112,12 +112,17 @@ public class ImageProcessor205BW {
 		
 		int[] h = compute_histogram(inputPixels,width,height);
 		int[] href = cumulative_hist(inputPixels,width,height);
-		int[] test = PDF(href);
+		double[] test = PDF();
 		double a = 0;
 		
+
 		
-		//int[] F = match_histrograms(inputPixels,width,height,test,256);
-		int[] F = matchHistograms(h,test);
+		
+		int [] F = match_histrograms(inputPixels,width,height,href,width*height);
+		//int[] F = matchHistograms(h,href);
+		for (int i = 0; i < 256; i++){
+			System.out.println(F[i]);
+		}
 		
 		for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
