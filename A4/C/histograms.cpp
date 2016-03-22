@@ -102,25 +102,32 @@ void process_image(PNG_Canvas_BW& image){
 	float sigmasqr2pi = sigma * sqrt(2*M_PI);
 	float twosigma2 = 2 * sigma * sigma;
 	for (int x = 0; x< 256; x++){
-		normal[x] = exp((-pow((x-m),2))/twosigma2)/(sigmasqr2pi)*10000;
+		normal[x] = exp((-pow((x-m),2))/twosigma2)/(sigmasqr2pi);
 		for(int y = 0; y < 256; y++){
 
 		}
 	}
 
+	for (int b = 1; b < 256; b++){
+		normal[b] = normal[b-1]+normal[b];
+	}
+
+	/*
 	for (int i = 0; i < 256; i++){
 		printf("%f\n",normal[i]);
 	}
+	*/
 
 	int F[256] = {0};
 
 	int n = width * height;
-	int r = 1;
+	int r = n/1;
 	int i = 0;
 	int c = 0;
 	int j = 0;
 	while (i < 256){
 		if (c <= r*normal[j]){
+			printf("%f\n", r*normal[i]);
 			c += h[i];
 			F[i] = j;
 			i = i + 1;
