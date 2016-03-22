@@ -1,4 +1,4 @@
-all: gauss laplace bell inversebel
+all: gauss laplace bell inversebell
 
 gauss: gauss.cpp
 	g++ -Wall gauss.cpp lodepng.cpp -o gauss
@@ -9,5 +9,5 @@ laplace: laplace.cpp
 bell: bell.cpp
 	g++ -Wall bell.cpp lodepng.cpp -o bell
 
-inversebel: inversebel.cpp
-	g++ -Wall inversebel.cpp lodepng.cpp -o inversebell
+inversebell: inversebell.cpp
+	g++ -Wall inversebell.cpp lodepng.cpp -o inversebell
