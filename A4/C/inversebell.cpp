@@ -63,19 +63,9 @@ void process_image(PNG_Canvas_BW& image){
 
 
 
-	/*
-	//inversed bell curve
-	double gx[256];
-	for (int b = 0; b < 256; b ++){
-		int sigma = 50;
-		int m = 128;
-		float sigmasqr2pi = sigma * sqrt(2*M_PI);
-		float twosigma2 = 2 * sigma * sigma;
-		float gm = exp((-pow((m-m),2))/twosigma2)/(sigmasqr2pi);
-		gx[b] = gm - normal[b];
-		//printf("%f\n",normal[b]);
-	}
-	*/
+
+
+
 
 	int h[256] = {0};
 	for (int x =0; x < width; x++){
@@ -103,20 +93,29 @@ void process_image(PNG_Canvas_BW& image){
 	float twosigma2 = 2 * sigma * sigma;
 	for (int x = 0; x< 256; x++){
 		normal[x] = exp((-pow((x-m),2))/twosigma2)/(sigmasqr2pi);
-		for(int y = 0; y < 256; y++){
+	}
 
-		}
+	//inversed bell curve
+	double gx[256] = {0};
+	for (int b = 0; b < 256; b ++){
+		int sigma = 50;
+		int m = 128;
+		float sigmasqr2pi = sigma * sqrt(2*M_PI);
+		float twosigma2 = 2 * sigma * sigma;
+		float gm = exp((-pow((m-m),2))/twosigma2)/(sigmasqr2pi);
+		gx[b] = gm - normal[b];
+		//printf("%f\n",gx[b]);
 	}
 
 	for (int b = 1; b < 256; b++){
-		normal[b] = normal[b-1]+normal[b];
+		gx[b] = gx[b-1]+gx[b];
 	}
 
-	/*
+
 	for (int i = 0; i < 256; i++){
-		printf("%f\n",normal[i]);
+		printf("%f\n",gx[i]);
 	}
-	*/
+
 
 	int F[256] = {0};
 
@@ -126,8 +125,8 @@ void process_image(PNG_Canvas_BW& image){
 	int c = 0;
 	int j = 0;
 	while (i < 256){
-		if (c <= r*normal[j]){
-			printf("%f\n", r*normal[i]);
+		if (c <= r*gx[j]){
+			//printf("%f\n", r*normal[i]);
 			c += h[i];
 			F[i] = j;
 			i = i + 1;
