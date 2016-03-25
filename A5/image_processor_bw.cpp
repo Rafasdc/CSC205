@@ -18,18 +18,41 @@ using namespace std;
 void process_image(PNG_Canvas_BW& image){
 	int width = image.get_width();
 	int height = image.get_height();
+	int H[5][5]= {
+			{0,0,1,0,0},
+			{0,1,1,1,0},
+			{1,1,1,1,1},
+			{0,1,1,1,0},
+			{0,0,1,0,0}
+	};
 	
+	//image dilatate with and then erode with H
+
 	//Make a new image canvas for the output to avoid conflicts
-	PNG_Canvas_BW outputImage(width,height);
+	PNG_Canvas_BW binary(width,height);
 	
+
 	//Placeholder: invert the image
-	for (int x = 0; x < width; x++)
-		for (int y = 0; y < height; y++)
-			outputImage[x][y] = 255 - image[x][y];
+	for (int x = 0; x < width; x++){
+		for (int y = 0; y < height; y++){
+			if (image.get_pixel(x,y) < 128) binary[x][y] = 1;
+			if (image.get_pixel(x,y) >= 128) binary[x][y] = 0;
+		}
+	}
+
+	PNG_Canvas_BW binarycopy(width,height);
+
+	for (int j = 0; j < 2; j++){
+		for (int i = 0; i < 2; i++){
+			if (H[j][i] > 0){
+
+			}
+		}
+	}
 			
 			
 	//Copy the result back into the provided image
-	image = outputImage;
+	//image = outputImage;
 }
 
 
