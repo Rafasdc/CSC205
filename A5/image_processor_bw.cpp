@@ -32,11 +32,11 @@ void process_image(PNG_Canvas_BW& image){
 	PNG_Canvas_BW binary(width,height);
 	
 
-	//Placeholder: invert the image
 	for (int x = 0; x < width; x++){
 		for (int y = 0; y < height; y++){
-			if (image.get_pixel(x,y) < 128) binary[x][y] = 1;
-			if (image.get_pixel(x,y) >= 128) binary[x][y] = 0;
+			if (image.get_pixel(x,y) <= 128) binary[x][y] = 1;
+			if (image.get_pixel(x,y) > 128) binary[x][y] = 0;
+
 		}
 	}
 
@@ -45,14 +45,30 @@ void process_image(PNG_Canvas_BW& image){
 	for (int j = 0; j < 2; j++){
 		for (int i = 0; i < 2; i++){
 			if (H[j][i] == 1){
+				//tmp.copyBits(I,i-ic,j-jc,Blitter.MAX);
+
 				//target.copybits(source,target of source inserted in target, same as previous,Max of (target,source)
+				binarycopy[j][i] += binary[j][i];
+				for (int u = 0; i <= 2; i++){
+					for (int v =0; v <= 2; v++){
+						if (binary[u][v] == 1){
+							binarycopy[u+j][u+i] = 1;
+						}
+					}
+				}
 			}
+		}
+	}
+
+	for (int i =0; i <= width; i++){
+		for (int j = 0; j <= width; j++){
+			printf("%d\n", binary[i][j]);
 		}
 	}
 			
 			
 	//Copy the result back into the provided image
-	//image = outputImage;
+	image = binary;
 }
 
 
