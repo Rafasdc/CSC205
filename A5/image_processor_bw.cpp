@@ -44,8 +44,8 @@ void process_image(PNG_Canvas_BW& image){
 
 	for (int j = 0; j < 2; j++){
 		for (int i = 0; i < 2; i++){
-			if (H[j][i] > 0){
-
+			if (H[j][i] == 1){
+				//target.copybits(source,target of source inserted in target, same as previous,Max of (target,source)
 			}
 		}
 	}
