@@ -41,34 +41,52 @@ void process_image(PNG_Canvas_BW& image){
 	}
 
 	PNG_Canvas_BW binarycopy(width,height);
+	for (int i =0; i <= width; i++){
+			for (int j = 0; j <= width; j++){
+				printf("%d\n", binarycopy[i][j]);
+				//if (binarycopy[i][j] == 1){
+				//	image[i][j] = 0;
+				//} else {
+				//	image[i][j] = 255;
+				//}
+			}
+		}
 
-	for (int j = 0; j < 2; j++){
-		for (int i = 0; i < 2; i++){
-			if (H[j][i] == 1){
-				//tmp.copyBits(I,i-ic,j-jc,Blitter.MAX);
+	//int K = 2;
 
-				//target.copybits(source,target of source inserted in target, same as previous,Max of (target,source)
-				binarycopy[j][i] += binary[j][i];
-				for (int u = 0; i <= 2; i++){
-					for (int v =0; v <= 2; v++){
-						if (binary[u][v] == 1){
-							binarycopy[u+j][u+i] = 1;
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 5; j++){
+			if (H[i][j] == 1  ){
+				//printf("inside H\n");
+				//binarycopy[i][j] = image[i][j];
+				for (int u = 0 ; u < width; u++){
+					for (int v = 0; v < height; v++){
+						if (image[u][v] == 255){
+							binarycopy[u+i][v+j] = 255;
 						}
 					}
 				}
+
 			}
 		}
 	}
 
+	/*
 	for (int i =0; i <= width; i++){
 		for (int j = 0; j <= width; j++){
-			printf("%d\n", binary[i][j]);
+			//printf("%d\n", binarycopy[i][j]);
+			if (binarycopy[i][j] == 1){
+				image[i][j] = 0;
+			} else {
+				image[i][j] = 255;
+			}
 		}
 	}
+	*/
 			
 			
 	//Copy the result back into the provided image
-	image = binary;
+	image = binarycopy;
 }
 
 
