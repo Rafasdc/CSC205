@@ -52,7 +52,7 @@ void process_image(PNG_Canvas_BW& image){
 				for (int u = 0 ; u < width; u++){
 					for (int v = 0; v < height; v++){
 						if (binary[u][v] == 1){
-							binarycopy[u+i][v+j] = 1;
+							binarycopy[u-i][v-j] = 1;
 						}
 					}
 				}
