@@ -1,4 +1,4 @@
-all: morphological scaling non_linear_transform
+all: morphological scaling ripple twirl
 
 morphological: morphological.cpp
 	g++ -Wall morphological.cpp lodepng.cpp -o morphological
@@ -6,6 +6,9 @@ morphological: morphological.cpp
 scaling: image_scaling.cpp
 	g++ -Wall image_scaling.cpp lodepng.cpp -o scaling
 
-non_linear_transform: non_linear_transform.cpp
-	g++ -Wall non_linear_transform.cpp lodepng.cpp -o non_linear_transform
+ripple: ripple.cpp
+	g++ -Wall ripple.cpp lodepng.cpp -o ripple
+
+twirl: twirl.cpp
+	g++ -Wall twirl.cpp lodepng.cpp -o twirl
 
