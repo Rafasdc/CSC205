@@ -1,10 +1,11 @@
-/* image_processor_bw.cpp
-   CSC 205 - Spring 2016
-   
-   Template for a grayscale PNG image processor.
-   
-   B. Bird - 03/02/2016
+/*
+ * Rafael Solorzano
+ * V00838235
+ * CSC205 Assignment 5
+ *
+ *
 */
+
 
 #include <string>
 #include <iostream>
@@ -26,7 +27,7 @@ void process_image(PNG_Canvas_BW& image){
 			{0,0,1,0,0}
 	};
 	
-	//image dilatate with and then erode with H
+	//image dilate with and then erode with H
 
 	//Make a new image canvas for the output to avoid conflicts
 	PNG_Canvas_BW binary(width,height);
@@ -43,7 +44,7 @@ void process_image(PNG_Canvas_BW& image){
 	PNG_Canvas_BW binarycopy(width,height);
 
 
-
+	//dilate
 	for (int i = 0; i < 5; i++){
 		for (int j = 0; j < 5; j++){
 			if (H[i][j] == 1  ){
@@ -61,7 +62,7 @@ void process_image(PNG_Canvas_BW& image){
 		}
 	}
 
-
+	//set image to dilate version
 	for (int i =0; i <= width; i++){
 		for (int j = 0; j <= width; j++){
 			//printf("%d\n", binarycopy[i][j]);
@@ -73,7 +74,7 @@ void process_image(PNG_Canvas_BW& image){
 		}
 	}
 
-
+	//erode the dilate version
 	for (int i = 0; i < 5; i++){
 		for (int j = 0; j < 5; j++){
 			if (H[i][j] == 1  ){
@@ -91,9 +92,6 @@ void process_image(PNG_Canvas_BW& image){
 		}
 	}
 
-
-			
-			
 	//Copy the result back into the provided image
 	image = binarycopy;
 }

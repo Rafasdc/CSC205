@@ -1,9 +1,9 @@
-/* image_processor_bw.cpp
-   CSC 205 - Spring 2016
-   
-   Template for a grayscale PNG image processor.
-   
-   B. Bird - 03/02/2016
+/*
+ * Rafael Solorzano
+ * V00838235
+ * CSC205 Assignment 5
+ *
+ *
 */
 
 #include <string>
@@ -14,18 +14,20 @@
 
 using namespace std;
 
-
+int width_in = 600;
+int height_in = 600;
 
 void process_image(PNG_Canvas_BW& image){
 	int width = image.get_width();
 	int height = image.get_height();
 
+
 	
 	//image dilatate with and then erode with H
 
 	//Make a new image canvas for the output to avoid conflicts
-	int new_w = width+500;
-	int new_h = height+500;
+	int new_w = width_in;
+	int new_h = height_in;
 	PNG_Canvas_BW imagenew(new_w,new_h);
 	
 	float wnw = ((double) width)/((double)new_w);
@@ -62,6 +64,10 @@ int main(int argc, char** argv){
 	}
 	string input_filename = argv[1];
 	string output_filename = argv[2];
+	if (argc > 3){
+			sscanf(argv[3],"%d",&width_in);
+			sscanf(argv[4],"%d",&height_in);
+		}
 	
 	PNG_Canvas_BW canvas;
 	if (!canvas.load_image(input_filename)){
