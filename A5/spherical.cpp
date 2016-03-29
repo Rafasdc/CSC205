@@ -21,21 +21,50 @@ void process_image(PNG_Canvas_BW& image){
 	int height = image.get_height();
 
 	
+	//image dilatate with and then erode with H
 
 	//Make a new image canvas for the output to avoid conflicts
 	PNG_Canvas_BW transformed(width,height);
 	
-	double ttx = 120;
-	double tty = 250;
-	double ax = 10;
-	double ay = 15;
+	double rmax = width/2;
+	double xc = (double) width/2;
+	double yc = (double) height/2;
+	double dx;
+	double dy;
+	double r;
+	double z;
+	double bethax;
+	double bethay;
 	double Tx;
 	double Ty;
+	double refract = 1.5;
+	double refractoverone = 1/refract;
+	double dxz;
+	double dyz;
 
 	for (int x = 0; x < width; x++){
 			for (int y = 0; y < height; y++){
-				Tx = (x + ax) * sin(((2*M_PI)*y)/ttx);
-				Ty = (y+ay) * sin((((2*M_PI)*x)/tty));
+
+				dx = x - xc;
+				dy = y - yc;
+				r = sqrt(dx*dx + dy*dy);
+				z = sqrt(rmax*rmax - r*r);
+				dxz = sqrt(dx*dx+z*z);
+				dyz = sqrt(dy*dy+z*z);
+				bethax = (1-refractoverone) * asin(dx/dxz);
+				bethay = (1-refractoverone) * asin(dy/dyz);
+
+
+				if (r > rmax){
+					Tx = x;
+				} else {
+					Tx = x - ( z*tan(bethax));
+				}
+				if (r > rmax){
+					Ty = y;
+				} else {
+					Ty = y - (z*tan(bethay));
+				}
 
 				//printf("%f\n",Tx);
 				//printf("%f\n",Ty);
@@ -51,10 +80,10 @@ void process_image(PNG_Canvas_BW& image){
 				if(x1 > 255) x1 = 128;
 				if (y0 > 255) y0 = 128;
 				if (y1 > 255) y1 = 128;
-				if(x0 < 0) x0 = 128;
-				if(x1 < 0) x1 = 128;
-				if (y0 < 0) y0 = 128;
-				if (y1 < 0) y1 = 128;
+				if(x0 < 0) x0 = 0;
+				if(x1 < 0) x1 = 0;
+				if (y0 < 0) y0 = 0;
+				if (y1 < 0) y1 = 0;
 				*/
 				int dx = 1 - xs;
 				int dy = 1 - ys;

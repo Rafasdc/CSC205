@@ -26,10 +26,10 @@ void process_image(PNG_Canvas_BW& image){
 	//Make a new image canvas for the output to avoid conflicts
 	PNG_Canvas_BW transformed(width,height);
 	
-	double rmax = (double) width/2;
+	double rmax = sqrt(width*width + height*height)/2;
 	double xc = (double) width/2;
 	double yc = (double) height/2;
-	double alpha = 43;
+	double alpha = 43*M_PI/180;
 	double dx;
 	double dy;
 	double r;
@@ -59,12 +59,12 @@ void process_image(PNG_Canvas_BW& image){
 				//printf("%f\n",Tx);
 				//printf("%f\n",Ty);
 
-				double x0 = floor(Tx);
-				double y0 = floor(Ty);
-				double x1 = ceil(Tx);
-				double y1 = ceil(Ty);
-				double xs = Tx - x0;
-				double ys = Ty - y0;
+				int x0 = floor(Tx);
+				int y0 = floor(Ty);
+				int x1 = ceil(Tx);
+				int y1 = ceil(Ty);
+				int xs = Tx - x0;
+				int ys = Ty - y0;
 				/*
 				if(x0 > 255) x0 = 128;
 				if(x1 > 255) x1 = 128;
@@ -75,9 +75,11 @@ void process_image(PNG_Canvas_BW& image){
 				if (y0 < 0) y0 = 0;
 				if (y1 < 0) y1 = 0;
 				*/
-				double p0 = (image.get_pixel(x0,y0) * (1-xs))+ (image.get_pixel(x1,y0)*xs);
-				double p1 = image.get_pixel(x0,y1) * (1-xs)+image.get_pixel(x1,y1)*xs;
-				double result = p0 *(1-ys) + p1 *ys;
+				int dx = 1 - xs;
+				int dy = 1 - ys;
+				int p0 = (image.get_pixel(x0,y0)*dx)+(image.get_pixel(x1,y0)*xs);
+				int p1 = (image.get_pixel(x0,y1)*dx)+(image.get_pixel(x1,y1)*xs);
+				int result = (p0 * dy) + (p1 *ys);
 				if (result > 255) result = 128;
 				if (result < 0) result = 128;
 				transformed.set_pixel(x,y,result);

@@ -1,4 +1,4 @@
-all: morphological scaling ripple twirl
+all: morphological scaling ripple twirl spherical
 
 morphological: morphological.cpp
 	g++ -Wall morphological.cpp lodepng.cpp -o morphological
@@ -12,3 +12,5 @@ ripple: ripple.cpp
 twirl: twirl.cpp
 	g++ -Wall twirl.cpp lodepng.cpp -o twirl
 
+spherical: spherical.cpp
+	g++ -Wall spherical.cpp lodepng.cpp -o spherical
