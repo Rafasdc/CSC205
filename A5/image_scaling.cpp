@@ -35,15 +35,20 @@ void process_image(PNG_Canvas_BW& image){
 	//printf("%f",wnw);
 	for (int x = 0; x < new_w; x++){
 		for (int y = 0; y < new_h; y++){
-			float x0 = (double) x * wnw;
-			//printf("%f\n",x0);
-			float y0 = (double) y * hnh;
-			//printf("%f\n",y0);
-			if (x0 > 256) x0 = 128;
-			if (y0 > 256) y0 = 128;
-			int ix = round(x0);
-			int iy = round(y0);
-			imagenew.set_pixel(x,y,image.get_pixel(ix,iy));
+			int x0 = floor(x * wnw);
+			int y0 = floor(y*hnh);
+			int x1 = ceil(x*wnw);
+			int y1 = ceil(y*hnh);
+			int xs = x - x0;
+			int ys = y - y0;
+			int dx = 1 - xs;
+			int dy = 1 - ys;
+			int p0 = (image.get_pixel(x0,y0)*dx)+(image.get_pixel(x1,y0)*xs);
+			int p1 = (image.get_pixel(x0,y1)*dx)+(image.get_pixel(x1,y1)*xs);
+			int result = (p0 * dy) + (p1 *ys);
+			if (result > 255) result = 128;
+			if (result < 0) result = 128;
+			imagenew.set_pixel(x,y,result);
 
 		}
 	}

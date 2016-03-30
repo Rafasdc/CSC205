@@ -1,5 +1,5 @@
 /* png_canvas.h
-
+   
    B. Bird - 01/02/2016
 */
 
