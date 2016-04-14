@@ -19,7 +19,7 @@ V00838235
 using namespace std;
 
 static const int WINDOW_SIZE_X = 800;
-static const int WINDOW_SIZE_Y = 600;
+static const int WINDOW_SIZE_Y = 900;
 
 
 
@@ -30,7 +30,7 @@ int main(){
                               WINDOW_SIZE_X, WINDOW_SIZE_Y, 
 							  SDL_WINDOW_SHOWN);
 							  
-	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0/*SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED*/);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 
 	//Initialize the canvas to solid green
 	SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);

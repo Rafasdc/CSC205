@@ -13,51 +13,54 @@
 #include "line.h"
 
 using namespace std;
-
+//textures
+SDL_Surface* sprites = SDL_LoadBMP("sprites.bmp");
+SDL_Surface* terrain = SDL_LoadBMP("terrain.bmp");
+SDL_Surface* characters = SDL_LoadBMP("characters.bmp");
 
 //C
 //top to bottom
 //Box brick1(100,300,100,350,145,173,78,255);
-Box brick1(100,200,100,125,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
-Box brick2(100,125,130,205,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
-Box brick3(100,125,210,285,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
-Box brick4(100,200,290,315,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick1(100,200,100,125,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick2(100,125,130,205,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick3(100,125,210,285,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick4(100,200,290,315,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
 
 //S
 //bottom to top
-Box brick5(250,375,290,315,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
-Box brick6(350,375,240,285,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
-Box brick7(250,375,210,235,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
-Box brick8(250,275,130,205,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
-Box brick9(250,375,100,125,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
+Box brick5(250,375,290,315,203,38,38,255,33,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick6(350,375,240,285,203,38,38,255,33,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick7(250,375,210,235,203,38,38,255,33,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick8(250,275,130,205,203,38,38,255,33,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick9(250,375,100,125,203,38,38,255,33,0,16,8,1,true, "sprites.bmp",sprites);
 
 //C
 //top to bottom
-Box brick10(425,525,100,125,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
-Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
-Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
-Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick10(425,525,100,125,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
+Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1,true, "sprites.bmp",sprites);
 
 //Lower Line
-Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
-Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
+Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp",sprites);
 
 
 //Play
-Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp");
+Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprites);
 
 
 //Ball
@@ -71,10 +74,13 @@ Line line_right(400,580,420,550,255,255,255,255);
 Line line_left(400,580,380,550,255,255,255,255);
 
 //walkin area 1
-Box walk(0,800,800,900,0,0,255,255,294,190,280,48,-1, true, "terrain.bmp");
+Box walk(0,800,800,900,0,0,255,255,294,190,280,48,-1, true, "terrain.bmp",terrain);
 
 //player
-Box player(400,415,772,800,255,0,0,0,196,48,15,28,-1,true, "characters.bmp");
+Box player(400,415,772,800,255,0,0,0,196,48,15,28,-1,true, "characters.bmp",terrain);
+
+
+//SDL_SetColorKey(surface,SDL_TRUE,0);
 
 
 std::vector<Box *> BrickList;
@@ -84,7 +90,7 @@ std::vector<Ball *> BallList;
 class Level1{
 public:
 	static const int CANVAS_SIZE_X = 800;
-	static const int CANVAS_SIZE_Y = 600;
+	static const int CANVAS_SIZE_Y = 900;
 
 
 
@@ -331,9 +337,6 @@ private:
 		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
 		SDL_RenderClear(renderer);
 
-
-		walk.draw(renderer);
-
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
 		/*
 		if (balls_2){
@@ -347,8 +350,8 @@ private:
 			BrickList[k]->draw(renderer);
 		}
 		//play.draw(renderer);
-		//walk.draw(renderer);
-		//player.draw(renderer);
+		walk.draw(renderer);
+		player.draw(renderer);
 
 
 
