@@ -1,0 +1,20 @@
+README
+
+Keyboard Controls
+A = Move Left
+D = Move Right
+Move Mouse =  choose inital ball direction and secondary ball if chosen
+
+Mouse Controls
+Move Mouse = Movement
+A = initial ball direciton left and second ball left if chosen
+D= initial ball direciton right and second ball right if chosen
+
+Default Direciton = Left
+Default Second Ball Position = Left
+
+Sources
+
+sprites.bmp
+The Spriters Resource
+http://www.spriters-resource.com/pc_computer/tronic/sheet/50896/
