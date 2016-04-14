@@ -25,7 +25,7 @@ static const int WINDOW_SIZE_Y = 600;
 
 int main(){
 
-	SDL_Window* window = SDL_CreateWindow("CSC 205 A2",
+	SDL_Window* window = SDL_CreateWindow("CSC 205 Project",
                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               WINDOW_SIZE_X, WINDOW_SIZE_Y, 
 							  SDL_WINDOW_SHOWN);

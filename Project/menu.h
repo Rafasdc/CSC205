@@ -29,8 +29,8 @@ static const ColourRGB BALL_COLOURS[] = {
 //Box brick1(100,300,100,350,145,173,78,255);
 //Box choice1(290,490,365,420,255,128,0,255,96,0,16,8);
 //Box choice2(290,490,490,545,51,153,255,255,96,0,16,8);
-Box balls1(370,405,295,320,255,51,0,255,0,0,0,0,-1,false);
-Box balls2(425,460,295,320,0,51,0,255,0,0,0,0,-1,false);
+Box balls1(370,405,295,320,255,51,0,255,0,0,0,0,-1,false,"none");
+Box balls2(425,460,295,320,0,51,0,255,0,0,0,0,-1,false,"none");
 
 
 
@@ -40,7 +40,7 @@ Box balls2(425,460,295,320,0,51,0,255,0,0,0,0,-1,false);
 class Menu{
 public:
 	static const int CANVAS_SIZE_X = 800;
-	static const int CANVAS_SIZE_Y = 600;
+	static const int CANVAS_SIZE_Y = 900;
 
 
 

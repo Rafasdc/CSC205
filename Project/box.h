@@ -23,12 +23,12 @@
 #include "vector2d.h"
 #include "colourRGB.h"
 
-
+using namespace std;
 
 class Box{
 public:
 	Box(int x1_in, int x2_in, int y1_in, int y2_in, int r_in, int g_in, int b_in, int a_in
-			,int clip_x_in, int clip_y_in, int clip_w_in, int clip_h_in, int hits_in, bool textured_in){
+			,int clip_x_in, int clip_y_in, int clip_w_in, int clip_h_in, int hits_in, bool textured_in, string texture_in){
 		//renderer = renderer_in;
 		x1 = x1_in;
 		x2 = x2_in;
@@ -46,6 +46,7 @@ public:
 		hits_to_destroy = hits_in;
 		hits = 0;
 		textured = textured_in;
+		texture = texture_in;
 
 
 	}
@@ -69,7 +70,8 @@ public:
 				r.y = y1;
 				r.w = x2-x1;
 				r.h = y2-y1;
-				SDL_Surface* surface = SDL_LoadBMP("sprites.bmp");
+				SDL_Surface* surface = SDL_LoadBMP(&texture[0]);
+				//SDL_SetColorKey(surface,SDL_TRUE,0);
 				SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer,surface);
 				SDL_RenderCopy(renderer, texture, &clip, &r);
 				SDL_FreeSurface(surface);
@@ -120,5 +122,6 @@ public:
 	//SDL_Renderer* renderer;
 	int x1,x2,y1,y2,r,g,b,a, clip_x, clip_y, clip_w, clip_h, hits_to_destroy, hits;
 	bool hit, textured;
+	string texture;
 };
 

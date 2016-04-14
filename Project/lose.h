@@ -2,8 +2,8 @@
 
 class Lose{
 public:
-	static const int CANVAS_SIZE_X = 800;
-	static const int CANVAS_SIZE_Y = 600;
+	static const int WINDOW_SIZE_X = 800;
+	static const int WINDOW_SIZE_Y = 900;
 
 
 

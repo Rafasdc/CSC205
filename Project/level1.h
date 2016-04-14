@@ -18,46 +18,46 @@ using namespace std;
 //C
 //top to bottom
 //Box brick1(100,300,100,350,145,173,78,255);
-Box brick1(100,200,100,125,145,173,78,255,96,0,16,8,1,true);
-Box brick2(100,125,130,205,145,173,78,255,96,0,16,8,1,true);
-Box brick3(100,125,210,285,145,173,78,255,96,0,16,8,1,true);
-Box brick4(100,200,290,315,145,173,78,255,96,0,16,8,1,true);
+Box brick1(100,200,100,125,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick2(100,125,130,205,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick3(100,125,210,285,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick4(100,200,290,315,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
 
 //S
 //bottom to top
-Box brick5(250,375,290,315,203,38,38,255,33,0,16,8,1,true);
-Box brick6(350,375,240,285,203,38,38,255,33,0,16,8,1,true);
-Box brick7(250,375,210,235,203,38,38,255,33,0,16,8,1,true);
-Box brick8(250,275,130,205,203,38,38,255,33,0,16,8,1,true);
-Box brick9(250,375,100,125,203,38,38,255,33,0,16,8,1,true);
+Box brick5(250,375,290,315,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
+Box brick6(350,375,240,285,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
+Box brick7(250,375,210,235,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
+Box brick8(250,275,130,205,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
+Box brick9(250,375,100,125,203,38,38,255,33,0,16,8,1,true, "sprites.bmp");
 
 //C
 //top to bottom
-Box brick10(425,525,100,125,145,173,78,255,96,0,16,8,1,true);
-Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1,true);
-Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1,true);
-Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1,true);
+Box brick10(425,525,100,125,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick11(425,450,130,205,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick12(425,450,210,285,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
+Box brick13(425,525,290,315,145,173,78,255,96,0,16,8,1,true, "sprites.bmp");
 
 //Lower Line
-Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3, true);
-Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3, true);
+Box brick14(0,50,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick15(55,105,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick16(110,160,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick17(165,215,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick18(165,215,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick19(220,270,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick20(275,325,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick21(330,380,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick22(385,435,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick23(440,490,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick24(495,545,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick25(550,600,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick26(605,655,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick27(660,710,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
+Box brick28(715,800,350,375,370,173,78,255,433,24,15,7,3, true, "sprites.bmp");
 
 
 //Play
-Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1, true);
+Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp");
 
 
 //Ball
@@ -69,6 +69,12 @@ Line line_right(400,580,420,550,255,255,255,255);
 
 //line left
 Line line_left(400,580,380,550,255,255,255,255);
+
+//walkin area 1
+Box walk(0,800,800,900,0,0,255,255,294,190,280,48,-1, true, "terrain.bmp");
+
+//player
+Box player(400,415,772,800,255,0,0,0,196,48,15,28,-1,true, "characters.bmp");
 
 
 std::vector<Box *> BrickList;
@@ -86,7 +92,7 @@ public:
 		key_a = true;
 		key_d = false;
 		first = true;
-		lose_disable = false;
+		lose_disable = true;
 		BrickList.push_back(&brick1);
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
@@ -206,7 +212,7 @@ private:
 			key_d = false;
 			key_a = true;
 
-			if(play_keyboard){
+			if(true){
 				if (play.x1-25 >= 0){
 				if (first){
 					ball.ball_position.x -=25;
@@ -216,8 +222,8 @@ private:
 					line_left.x2 -= 25;
 				}
 
-					play.x1 -= 25;
-					play.x2 -= 25;
+					player.x1 -= 25;
+					player.x2 -= 25;
 				}
 			}
 
@@ -226,7 +232,7 @@ private:
 		} else if (key == SDLK_d){
 			key_a = false;
 			key_d = true;
-			if (play_keyboard){
+			if (true){
 				if (play.x2+25 <= CANVAS_SIZE_X){
 				if (first){
 					ball.ball_position.x +=25;
@@ -236,8 +242,8 @@ private:
 					line_left.x1 += 25;
 				}
 
-					play.x1 += 25;
-					play.x2 += 25;
+					player.x1 += 25;
+					player.x2 += 25;
 				}
 			}
 
@@ -262,7 +268,7 @@ private:
 	void handle_mouse_up2(int x, int y, int button){
 	}
 	void handle_mouse_moved2(int x, int y){
-		//printf("x is %d, y is %d\n", x,y);
+		printf("x is %d, y is %d\n", x,y);
 		mouse_x = x;
 
 		if (play_mouse){
@@ -287,10 +293,12 @@ private:
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 
+		/*
 		if (balls_2){
 			arb.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 			arb.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		}
+		*/
 
 		//arb.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y);
 		//arb.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y);
@@ -309,6 +317,7 @@ private:
 					}
 		}
 
+		/*
 		if (!first){
 			play.ball_intersection(&ball.new_position, &ball.ball_position,ball.radius,&ball.ball_direction);
 			play.ball_intersection(&arb.new_position, &arb.ball_position,arb.radius,&arb.ball_direction);
@@ -316,46 +325,30 @@ private:
 		if (balls_2){
 			ball.ball_ball_col(&arb);
 		}
+		*/
 
 
 		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
 		SDL_RenderClear(renderer);
 
 
-
-		if (!play_mouse && first && mouse_x < CANVAS_SIZE_X/2){
-			ball.set_direction(135,135);
-			line_left.draw(renderer);
-			arb.ball_position.x= 70;
-		} else if (!play_mouse && first) {
-			ball.set_direction(45,45);
-			line_right.draw(renderer);
-			arb.ball_position.x= 750;
-
-		}
-
-		if (!play_keyboard && key_a && first){
-			ball.set_direction(135,135);
-			line_left.draw(renderer);
-			arb.ball_position.x= 70;
-		} else if (!play_keyboard && key_d && first) {
-			ball.set_direction(45,45);
-			line_right.draw(renderer);
-			arb.ball_position.x= 750;
-
-		}
+		walk.draw(renderer);
 
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
+		/*
 		if (balls_2){
 			arb.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
 		}
+		*/
 
 
 		//draw each box
 		for (int k = 0; k < BrickList.size(); k++){
 			BrickList[k]->draw(renderer);
 		}
-		play.draw(renderer);
+		//play.draw(renderer);
+		//walk.draw(renderer);
+		//player.draw(renderer);
 
 
 
