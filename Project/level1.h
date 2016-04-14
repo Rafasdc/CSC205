@@ -279,6 +279,9 @@ private:
 			}
 			*/
 			lose_disable = true;
+		} else if (key == SDLK_w){
+			key_w = true;
+
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
@@ -350,6 +353,27 @@ private:
 		}
 		*/
 
+		float frame_delta_seconds = frame_delta_ms/1000.0;
+		if (key_w){
+		float gravity = 405;
+		float jump_height = 100;
+		printf("player velo is %f \n", player.velocity_y);
+		if (player.velocity_y -= 0){
+			player.y1 -= player.velocity_y * frame_delta_seconds;
+			player.y2 -= player.velocity_y * frame_delta_seconds;
+			player.velocity_y -= gravity * frame_delta_seconds;
+		}
+		if (player.y2 > 800){
+			player.y1 = 745;
+			player.y2 = 800;
+			player.velocity_y = 0;
+			key_w = false;
+		}
+		if (player.velocity_y == 0){
+			player.velocity_y = jump_height;
+		}
+
+		}
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
@@ -379,7 +403,7 @@ private:
 
 		SDL_RenderPresent(renderer);
 	}
-	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable;
+	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w;
 	int mouse_x;
 };
 

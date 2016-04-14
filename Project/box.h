@@ -49,7 +49,7 @@ public:
 		textured = textured_in;
 		texture = texture_in;
 		surface = surface_in;
-
+		velocity_y = 0;
 
 	}
 
@@ -124,5 +124,6 @@ public:
 	int x1,x2,y1,y2,r,g,b,a, clip_x, clip_y, clip_w, clip_h, hits_to_destroy, hits;
 	bool hit, textured;
 	string texture;
+	float velocity_y;
 };
 
