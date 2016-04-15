@@ -50,6 +50,7 @@ public:
 		texture = texture_in;
 		surface = surface_in;
 		velocity_y = 0;
+		velocity_x = 225;
 
 	}
 
@@ -117,6 +118,13 @@ public:
 		}
 	}
 
+	void setClip(int x, int y, int w, int h){
+		clip_x = x;
+		clip_y = y;
+		clip_w = w;
+		clip_h = h;
+	}
+
 
 
 	//SDL_Renderer* renderer;
@@ -124,6 +132,6 @@ public:
 	int x1,x2,y1,y2,r,g,b,a, clip_x, clip_y, clip_w, clip_h, hits_to_destroy, hits;
 	bool hit, textured;
 	string texture;
-	float velocity_y;
+	float velocity_y,velocity_x;
 };
 
