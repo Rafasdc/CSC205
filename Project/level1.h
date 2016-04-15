@@ -87,6 +87,11 @@ Box box6(705,735,640,670,255,0,0,255,783,532,30,30,-1,true,"bleh",sprite);
 
 //hit over box when hit
 Box overbox1(0,125,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
+Box overbox2(130,250,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
+Box overbox3(255,375,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
+Box overbox4(380,520,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
+Box overbox5(525,645,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
+Box overbox6(650,800,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
 
 //SDL_SetColorKey(surface,SDL_TRUE,0);
 
@@ -94,7 +99,7 @@ Box overbox1(0,125,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite
 std::vector<Box *> BrickList;
 std::vector<Ball*> BallList;
 std::vector<Box *> HitBoxes;
-
+vector<Box *> OverBoxes;
 
 class Level1{
 public:
@@ -108,6 +113,13 @@ public:
 		key_d = false;
 		first = true;
 		lose_disable = true;
+		changer_r = true;
+		ichange_r = 0;
+		changer_l = true;
+		ichange_l = 0;
+		for (int i = 0; i < 5; i++){
+			overboxes_hit[i] = 0;
+		}
 		BrickList.push_back(&brick1);
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
@@ -142,6 +154,13 @@ public:
 		HitBoxes.push_back(&box4);
 		HitBoxes.push_back(&box5);
 		HitBoxes.push_back(&box6);
+		OverBoxes.push_back(&overbox1);
+		OverBoxes.push_back(&overbox2);
+		OverBoxes.push_back(&overbox3);
+		OverBoxes.push_back(&overbox4);
+		OverBoxes.push_back(&overbox5);
+		OverBoxes.push_back(&overbox6);
+
 
 
 	}
@@ -267,10 +286,7 @@ private:
 
 
 	}
-	bool changer_r = true;
-	int ichange_r = 0;
-	bool changer_l = true;
-	int ichange_l = 0;
+
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
 
 		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y-100);
@@ -298,26 +314,25 @@ private:
 
 		float frame_delta_seconds = frame_delta_ms/1000.0;
 		if (key_w){
-		player.setClip(334,244,17,26);
-		float gravity = 405;
-		float jump_height = 210;
-		//printf("player velo is %f \n", player.velocity_y);
-		if (player.velocity_y -= 0){
-			player.y1 -= player.velocity_y * frame_delta_seconds;
-			player.y2 -= player.velocity_y * frame_delta_seconds;
-			player.velocity_y -= gravity * frame_delta_seconds;
-		}
-		if (player.y2 > 800){
-			player.y1 = 745;
-			player.y2 = 800;
-			player.velocity_y = 0;
-			player.setClip(216,244,14,26);
-			key_w = false;
-		}
-		if (player.velocity_y == 0){
-			player.velocity_y = jump_height;
-		}
-
+			player.setClip(334,244,17,26);
+			float gravity = 305;
+			float jump_height = 210;
+			//printf("player velo is %f \n", player.velocity_y);
+			if (player.velocity_y != 0){
+				player.y1 -= player.velocity_y * frame_delta_seconds;
+				player.y2 -= player.velocity_y * frame_delta_seconds;
+				player.velocity_y -= gravity * frame_delta_seconds;
+			}
+			if (player.y2 > 800){
+				player.y1 = 745;
+				player.y2 = 800;
+				player.velocity_y = 0;
+				player.setClip(216,244,14,26);
+				key_w = false;
+			}
+			if (player.velocity_y == 0){
+				player.velocity_y = jump_height;
+			}
 		}
 
 		const Uint8 *state = SDL_GetKeyboardState(NULL);
@@ -365,6 +380,12 @@ private:
 			player.x2 -= player.velocity_x*frame_delta_seconds;
 		}
 
+		player.ball_intersection(&ball.new_position, &ball.ball_position,ball.radius,&ball.ball_direction);
+
+		for (int j = 0; j < HitBoxes.size(); j++){
+			player.box_collision(HitBoxes[j], overboxes_hit, j);
+		}
+
 
 
 
@@ -383,19 +404,25 @@ private:
 		}
 		for (int k = 0; k < HitBoxes.size(); k++){
 			HitBoxes[k]->draw(renderer);
+			if (overboxes_hit[k] > 0){
+			OverBoxes[k]->draw(renderer);
+			} else if (overboxes_hit[k] != 0){
+				overboxes_hit[k] --;
+			}
 		}
 		//play.draw(renderer);
 		walk.draw(renderer);
 		player.draw(renderer);
-		overbox1.draw(renderer);
 
 
 
 
 		SDL_RenderPresent(renderer);
 	}
-	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w;
-	int mouse_x;
+	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w, changer_r, changer_l;
+	int mouse_x, ichange_r, ichange_l;
+	int overboxes_hit[6];
+
 };
 
 

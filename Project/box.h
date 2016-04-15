@@ -118,6 +118,57 @@ public:
 		}
 	}
 
+	void box_collision(Box* box, int overbox_hit[6], int k){
+		/*
+		 * Using Minkowski Sum we calculate a new rectangle and we check
+		 * where current rectangle lies relative to the new rectangle we computed
+		 * also we check its diagonals to check where they are happening,
+		 * only interested in bottom, left and right as top should never occur.
+		 * Based on question answer in http://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
+		 * And in Wikipedia
+		 */
+		float w = 0.5 * ((x2-x1)+(box->x2-box->x1));
+		//float a = box->y2 - box->y1;
+		//printf("%f\n",a);
+		float h = 0.5 * ((y2-y1)+(box->y2-box->y1));
+		float dx = ((x2+x1)/2) - ((box->x2+box->x1)/2);
+		float dy = ((y2+y1)/2) - ((box->y2+box->y1)/2);
+		//printf("%f %f\n", w, h);
+		//printf("%f %f\n", dy, dx);
+
+		if (abs(dx) <= w && abs(dy) <= h){
+			printf("collision\n");
+			float y = w * dy;
+			float x = h * dx;
+			if (y > x){
+				if (y > -x){
+					printf ("bottom \n");
+					int h = y2 - y1;
+					y1 = box->y2 + 1;
+					y2 = y1 + h;
+					overbox_hit[k] = 100;
+				} else {
+					printf("left \n");
+					int w = x2 - x1;
+					x2 = box->x1 -1;
+					x1 = x2 - w;
+				}
+			} else {
+				if (y > -x){
+					printf("right\n");
+					int w = x2 - x1;
+					x1 = box->x2 + 1;
+					x2 = x1 + w;
+				} else {
+					printf("top\n");
+					//should never occur
+				}
+			}
+		}
+
+
+	}
+
 	void setClip(int x, int y, int w, int h){
 		clip_x = x;
 		clip_y = y;
