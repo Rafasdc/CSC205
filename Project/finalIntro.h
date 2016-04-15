@@ -1,3 +1,8 @@
+/*
+Project CSC205
+Rafael Solorzano
+V00838235
+*/
 #include <string.h>
 
 class FinalIntro{

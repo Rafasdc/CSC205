@@ -1,5 +1,5 @@
 /*
-Assignment 2 CSC205
+Project CSC205
 Rafael Solorzano
 V00838235
 */

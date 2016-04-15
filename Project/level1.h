@@ -1,4 +1,8 @@
-
+/*
+Project CSC205
+Rafael Solorzano
+V00838235
+*/
 #include <iostream>
 #include <vector>
 #include <cmath>

@@ -1,9 +1,8 @@
 /*
- * ball.h
- *
- *  Created on: Feb 13, 2016
- *      Author: rafa
- */
+Project CSC205
+Rafael Solorzano
+V00838235
+*/
 
 #ifndef BALL_H_
 #define BALL_H_
