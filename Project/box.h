@@ -137,30 +137,30 @@ public:
 		//printf("%f %f\n", dy, dx);
 
 		if (abs(dx) <= w && abs(dy) <= h){
-			printf("collision\n");
+			//printf("collision\n");
 			float y = w * dy;
 			float x = h * dx;
 			if (y > x){
 				if (y > -x){
-					printf ("bottom \n");
+					//printf ("bottom \n");
 					int h = y2 - y1;
 					y1 = box->y2 + 1;
 					y2 = y1 + h;
 					overbox_hit[k] = 100;
 				} else {
-					printf("left \n");
+					//printf("left \n");
 					int w = x2 - x1;
 					x2 = box->x1 -1;
 					x1 = x2 - w;
 				}
 			} else {
 				if (y > -x){
-					printf("right\n");
+					//printf("right\n");
 					int w = x2 - x1;
 					x1 = box->x2 + 1;
 					x2 = x1 + w;
 				} else {
-					printf("top\n");
+					//printf("top\n");
 					//should never occur
 				}
 			}

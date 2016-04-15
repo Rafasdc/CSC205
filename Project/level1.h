@@ -62,7 +62,7 @@ Box play(350,450,580,590,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
 
 
 //Ball
-Ball ball(400,569,135,135, 7,225, 255,67,55,255);
+Ball ball(400,569,135,135, 7,200, 255,67,55,255);
 Ball arb(70,530,-100,-100, 7,225, 0,255,55,255);
 
 //line right
@@ -120,6 +120,7 @@ public:
 		for (int i = 0; i < 5; i++){
 			overboxes_hit[i] = 0;
 		}
+		overboxes_hit[5] = 0;
 		BrickList.push_back(&brick1);
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
@@ -165,7 +166,7 @@ public:
 
 	}
 
-	int frame_loop2(SDL_Renderer* r){
+	int frame_loop2(SDL_Renderer* r, int lives){
 		unsigned int last_frame = SDL_GetTicks();
 		unsigned int frame_number = 0;
 		while(1){
@@ -267,24 +268,8 @@ private:
 	void handle_mouse_up2(int x, int y, int button){
 	}
 	void handle_mouse_moved2(int x, int y){
-		printf("x is %d, y is %d\n", x,y);
+		//printf("x is %d, y is %d\n", x,y);
 		mouse_x = x;
-
-		if (play_mouse){
-			play.x1 = x;
-			play.x2 = x+100;
-
-			if (first){
-				ball.ball_position.x =x+50;
-				int move_line = (play.x1 + play.x2)*1/2;
-				line_right.x1 = move_line;
-				line_right.x2 = move_line+20;
-				line_left.x2 = move_line-20;
-				line_left.x1 = move_line;
-			}
-		}
-
-
 	}
 
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
@@ -309,6 +294,9 @@ private:
 
 		for (int j = 0; j < HitBoxes.size(); j++){
 			ball.ball_rectangle_col(HitBoxes[j]);
+			if (overboxes_hit[j] > 0){
+				ball.ball_rectangle_col(OverBoxes[j]);
+			}
 		}
 
 
@@ -356,6 +344,10 @@ private:
 			}
 			player.x1 += player.velocity_x*frame_delta_seconds;
 			player.x2 += player.velocity_x*frame_delta_seconds;
+			if (player.x2 > 800){
+				player.x2 = 800;
+				player.x1 = 800-35;
+			}
 		}
 
 
@@ -378,6 +370,10 @@ private:
 			}
 			player.x1 -= player.velocity_x*frame_delta_seconds;
 			player.x2 -= player.velocity_x*frame_delta_seconds;
+			if (player.x1 < 0){
+				player.x1 = 0;
+				player.x2 = 35;
+			}
 		}
 
 		player.ball_intersection(&ball.new_position, &ball.ball_position,ball.radius,&ball.ball_direction);
@@ -405,7 +401,7 @@ private:
 		for (int k = 0; k < HitBoxes.size(); k++){
 			HitBoxes[k]->draw(renderer);
 			if (overboxes_hit[k] > 0){
-				printf("%d\n", overboxes_hit[k]);
+				//printf("%d\n", overboxes_hit[k]);
 				OverBoxes[k]->draw(renderer);
 				overboxes_hit[k]--;
 			}

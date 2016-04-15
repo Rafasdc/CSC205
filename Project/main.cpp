@@ -15,6 +15,7 @@ V00838235
 #include "lose.h"
 #include "menu.h"
 #include "win.h"
+#include "final.h"
 
 using namespace std;
 
@@ -41,12 +42,34 @@ int main(){
 	Level1 level1;
 	Lose lose;
 	Win win;
+	FinalLevel final;
 	bool quit = false;
 
 
-
+	int status;
 	//menu.frame_loop_menu(renderer, &level1);
-	int won = level1.frame_loop2(renderer);
+	/*
+	for (int i = 0; i < 3; i++){
+		status = level1.frame_loop2(renderer , 3-i);
+		if (status == 1){
+			break;
+			//won level 1 proceding to level 2
+		}
+		if (status == 2){
+			exit(0);
+		}
+	}
+	*/
+	for (int i = 0; i < 3; i++){
+		status = final.frame_loop2(renderer,3-i);
+		if (status == 1){
+			break;
+		}
+		if (status == 2){
+			exit(0);
+		}
+	}
+	/*
 	if (won == 1){
 		win.frame_loop_win(renderer);
 	} else if (won == -1){
@@ -54,11 +77,7 @@ int main(){
 	} else {
 		exit(0);
 	}
-
-
-	
-
-
+	*/
 
 	return 0;
 }
