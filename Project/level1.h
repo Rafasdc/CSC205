@@ -356,7 +356,7 @@ private:
 		float frame_delta_seconds = frame_delta_ms/1000.0;
 		if (key_w){
 		float gravity = 405;
-		float jump_height = 100;
+		float jump_height = 200;
 		printf("player velo is %f \n", player.velocity_y);
 		if (player.velocity_y -= 0){
 			player.y1 -= player.velocity_y * frame_delta_seconds;
