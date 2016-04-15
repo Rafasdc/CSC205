@@ -405,9 +405,9 @@ private:
 		for (int k = 0; k < HitBoxes.size(); k++){
 			HitBoxes[k]->draw(renderer);
 			if (overboxes_hit[k] > 0){
-			OverBoxes[k]->draw(renderer);
-			} else if (overboxes_hit[k] != 0){
-				overboxes_hit[k] --;
+				printf("%d\n", overboxes_hit[k]);
+				OverBoxes[k]->draw(renderer);
+				overboxes_hit[k]--;
 			}
 		}
 		//play.draw(renderer);
