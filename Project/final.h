@@ -12,7 +12,7 @@
 
 using namespace std;
 //surfaces
-SDL_Surface* fsprite = SDL_LoadBMP("sprites_small.bmp");
+SDL_Surface* fsprite = SDL_LoadBMP("sprites_small_with_pear.bmp");
 
 //C
 //top to bottom
@@ -57,17 +57,23 @@ Box fbrick27(660,710,400,425,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",f
 Box fbrick28(715,800,400,425,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",fsprite);
 
 //pear
-Box pear1(300,480,255,285,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",fsprite);
-Box pear2(290,490,225,255,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",fsprite);
-Box pear3(300,480,195,225,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",fsprite);
-Box pear4(320,460,165,195,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",fsprite);
+Box pear0(320,460,286,316,370,173,78,255,603,353,115,22,5, true, "sprite.bmp",fsprite);
+Box pear1(305,485,255,285,370,173,78,255,583,316,151,25,5, true, "sprite.bmp",fsprite);
+Box pear2(290,490,225,255,370,173,78,255,573,263,168,34,5, true, "sprite.bmp",fsprite);
+Box pear3(290,490,195,225,370,173,78,255,573,213,171,29,5, true, "sprite.bmp",fsprite);
+Box pear4(300,485,165,195,370,173,78,255,576,182,162,27,5, true, "sprite.bmp",fsprite);
+Box pear5(315,470,135,165,370,173,78,255,584,151,142,23,5, true, "sprite.bmp",fsprite);
+Box pear6(330,450,104,134,370,173,78,255,599,124,112,22,5, true, "sprite.bmp",fsprite);
+Box pear7(343,434,87,104,370,173,78,255,607,107,86,15,5, true, "sprite.bmp",fsprite);
+Box pear8(350,420,69,86,370,173,78,255,613,88,68,15,5, true, "sprite.bmp",fsprite);
+Box pear9(360,405,55,69,370,173,78,255,617,62,46,14,5, true, "sprite.bmp",fsprite);
 
 
 //Play
 Box fplay(350,450,580,590,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
 
 
-//Ball
+//fball
 Ball fball(400,569,135,135, 7,200, 255,67,55,255);
 Ball farb(70,530,-100,-100, 7,225, 0,255,55,255);
 
@@ -118,7 +124,7 @@ public:
 		key_a = true;
 		key_d = false;
 		first = true;
-		lose_disable = true;
+		lose_disable = false;
 		changer_r = true;
 		ichange_r = 0;
 		changer_l = true;
@@ -127,7 +133,8 @@ public:
 			fOverBoxes_hit[i] = 0;
 		}
 		fOverBoxes_hit[5] = 0;
-
+		lives = 3;
+		finalwin = false;
 		//fBrickList.push_back(&fbrick1);
 		fBrickList.push_back(&fbrick2);
 		fBrickList.push_back(&fbrick3);
@@ -152,10 +159,16 @@ public:
 		fBrickList.push_back(&fbrick26);
 		fBrickList.push_back(&fbrick27);
 		fBrickList.push_back(&fbrick28);
+		fBrickList.push_back(&pear0);
 		fBrickList.push_back(&pear1);
 		fBrickList.push_back(&pear2);
 		fBrickList.push_back(&pear3);
 		fBrickList.push_back(&pear4);
+		fBrickList.push_back(&pear5);
+		fBrickList.push_back(&pear6);
+		fBrickList.push_back(&pear7);
+		fBrickList.push_back(&pear8);
+		fBrickList.push_back(&pear9);
 		fHitBoxes.push_back(&fbox1);
 		fHitBoxes.push_back(&fbox2);
 		fHitBoxes.push_back(&fbox3);
@@ -173,8 +186,7 @@ public:
 
 	}
 
-	int frame_loop2(SDL_Renderer* r, int lives_in){
-		lives = lives_in;
+	int frame_loop2(SDL_Renderer* r){
 		unsigned int last_frame = SDL_GetTicks();
 		unsigned int frame_number = 0;
 		while(1){
@@ -214,13 +226,23 @@ public:
 			last_frame = current_frame;
 			frame_number++;
 
-			if (ball.hit_bottom){
+			if (fball.hit_bottom){
 				if(!lose_disable){
-					return -1;
+					if (lives != 0){
+						lives--;
+						fball.start = false;
+						first = true;
+						fball.hit_bottom = false;
+						fball.ball_position.x = 400;
+						fball.ball_position.y = 569;
+					} else {
+						return -1;
+					}
+
 				}
 			}
 
-			if (fBrickList.size() == 0){
+			if (fBrickList.size() == 0 || finalwin){
 				return 1;
 			}
 
@@ -245,16 +267,16 @@ private:
 
 	void handle_key_down2(SDL_Keycode key){
 		if (key == SDLK_SPACE){
-			ball.start = true;
+			fball.start = true;
 			arb.start = true;
 			first = false;
 		}else if (key == SDLK_r){
 
 			Vector2d rotation( cos(30*(M_PI/180)), sin(30*(M_PI/180)) );
 			Vector2d new_direction(
-			rotation.x*ball.ball_direction.x - rotation.y*ball.ball_direction.y,
-			rotation.x*ball.ball_direction.y + rotation.y*ball.ball_direction.x);
-			ball.ball_direction = new_direction;
+			rotation.x*fball.ball_direction.x - rotation.y*fball.ball_direction.y,
+			rotation.x*fball.ball_direction.y + rotation.y*fball.ball_direction.x);
+			fball.ball_direction = new_direction;
 
 		} else if (key == SDLK_a){
 
@@ -264,11 +286,13 @@ private:
 			lose_disable = true;
 		} else if (key == SDLK_w){
 			key_w = true;
+		} else if (key == SDLK_k){
+			finalwin = true;
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
 		if (button == SDL_BUTTON_LEFT){
-			ball.start = true;
+			fball.start = true;
 			first = false;
 			arb.start = true;
 		}
@@ -281,12 +305,12 @@ private:
 
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
 
-		ball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y-100);
-		ball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y-100);
+		fball.move(renderer,frame_delta_ms,CANVAS_SIZE_X, CANVAS_SIZE_Y-100);
+		fball.screen_collission(CANVAS_SIZE_X, CANVAS_SIZE_Y-100);
 
 
 		for (int k = 0; k < fBrickList.size(); k++){
-					(ball.ball_rectangle_col(fBrickList[k]));
+					(fball.ball_rectangle_col(fBrickList[k]));
 					(arb.ball_rectangle_col(fBrickList[k]));
 					if(fBrickList[k]->hits ==1 && fBrickList[k]->hits_to_destroy ==1){
 						fBrickList.erase(fBrickList.begin()+k);
@@ -300,9 +324,9 @@ private:
 		}
 
 		for (int j = 0; j < fHitBoxes.size(); j++){
-			ball.ball_rectangle_col(fHitBoxes[j]);
+			fball.ball_rectangle_col(fHitBoxes[j]);
 			if (fOverBoxes_hit[j] > 0){
-				ball.ball_rectangle_col(fOverBoxes[j]);
+				fball.ball_rectangle_col(fOverBoxes[j]);
 			}
 		}
 
@@ -383,7 +407,7 @@ private:
 			}
 		}
 
-		player.ball_intersection(&ball.new_position, &ball.ball_position,ball.radius,&ball.ball_direction);
+		player.ball_intersection(&fball.new_position, &fball.ball_position,fball.radius,&fball.ball_direction);
 
 		for (int j = 0; j < fHitBoxes.size(); j++){
 			player.box_collision(fHitBoxes[j], fOverBoxes_hit, j);
@@ -395,7 +419,7 @@ private:
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
+		fball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
 
 
 
@@ -418,13 +442,21 @@ private:
 		player.draw(renderer);
 
 		stringRGBA(renderer,10,10,"BALLS",255,255,255,255);
+		if (lives == 3){
+			stringRGBA(renderer,10,25,"3",255,255,255,255);
+		} else if (lives == 2){
+			stringRGBA(renderer,10,25,"2",255,255,255,255);
+		} else {
+			stringRGBA(renderer,10,25,"1",255,255,255,255);
+		}
 
 
 		SDL_RenderPresent(renderer);
 	}
-	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w, changer_r, changer_l;
+	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w, changer_r, changer_l,finalwin;
 	int mouse_x, ichange_r, ichange_l, lives;
 	int fOverBoxes_hit[6];
+
 
 };
 

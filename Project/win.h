@@ -81,7 +81,7 @@ public:
 			SDL_SetRenderDrawColor(renderer, 0, 102, 204, 255);
 			SDL_RenderClear(renderer);
 
-			stringRGBA(renderer,300,300,"YOU WON CONGRATULATIONS",255,0,0,255);
+			stringRGBA(renderer,300,300,"YOU HAVE BEATEN CSC205 CONGRATULATIONS",255,0,0,255);
 			stringRGBA(renderer,500,400,"PRESS SPACE TO QUIT",255,0,0,255);
 
 

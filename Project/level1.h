@@ -121,6 +121,8 @@ public:
 			overboxes_hit[i] = 0;
 		}
 		overboxes_hit[5] = 0;
+		lives = 3;
+		cheatwin = false;
 		BrickList.push_back(&brick1);
 		BrickList.push_back(&brick2);
 		BrickList.push_back(&brick3);
@@ -166,7 +168,7 @@ public:
 
 	}
 
-	int frame_loop2(SDL_Renderer* r, int lives){
+	int frame_loop2(SDL_Renderer* r){
 		unsigned int last_frame = SDL_GetTicks();
 		unsigned int frame_number = 0;
 		while(1){
@@ -208,11 +210,22 @@ public:
 
 			if (ball.hit_bottom){
 				if(!lose_disable){
-					return -1;
+					if (lives != 0){
+						lives--;
+						ball.start = false;
+						first = true;
+						ball.hit_bottom = false;
+						ball.ball_position.x = 400;
+						ball.ball_position.y = 569;
+					} else {
+						return -1;
+					}
+
 				}
 			}
 
-			if (BrickList.size() == 0){
+
+			if (BrickList.size() == 0 || cheatwin){
 				return 1;
 			}
 
@@ -256,6 +269,8 @@ private:
 			lose_disable = true;
 		} else if (key == SDLK_w){
 			key_w = true;
+		} else if (key == SDLK_k){
+			cheatwin = true;
 		}
 	}
 	void handle_mouse_down2(int x, int y, int button){
@@ -410,13 +425,21 @@ private:
 		walk.draw(renderer);
 		player.draw(renderer);
 
+		stringRGBA(renderer,10,10,"BALLS",255,255,255,255);
+		if (lives == 3){
+			stringRGBA(renderer,10,25,"3",255,255,255,255);
+		} else if (lives == 2){
+			stringRGBA(renderer,10,25,"2",255,255,255,255);
+		} else {
+			stringRGBA(renderer,10,25,"1",255,255,255,255);
+		}
 
 
 
 		SDL_RenderPresent(renderer);
 	}
-	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w, changer_r, changer_l;
-	int mouse_x, ichange_r, ichange_l;
+	bool first, play_mouse, play_keyboard, key_a, key_d, balls_2, lose_disable, key_w, changer_r, changer_l, cheatwin;
+	int mouse_x, ichange_r, ichange_l, lives;
 	int overboxes_hit[6];
 
 };

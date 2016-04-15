@@ -13,7 +13,6 @@ V00838235
 #include "colourRGB.h"
 #include "level1.h"
 #include "lose.h"
-#include "menu.h"
 #include "win.h"
 #include "final.h"
 
@@ -38,46 +37,34 @@ int main(){
 	SDL_RenderClear(renderer);
 	SDL_RenderPresent(renderer);
 	
-	Menu menu;
 	Level1 level1;
 	Lose lose;
 	Win win;
 	FinalLevel final;
 	bool quit = false;
+	int status = 0;
 
 
-	int status;
-	//menu.frame_loop_menu(renderer, &level1);
-	/*
-	for (int i = 0; i < 3; i++){
-		status = level1.frame_loop2(renderer , 3-i);
-		if (status == 1){
-			break;
-			//won level 1 proceding to level 2
-		}
-		if (status == 2){
-			exit(0);
-		}
-	}
-	*/
-	for (int i = 0; i < 3; i++){
-		status = final.frame_loop2(renderer,3-i);
-		if (status == 1){
-			break;
-		}
-		if (status == 2){
-			exit(0);
-		}
-	}
-	/*
-	if (won == 1){
-		win.frame_loop_win(renderer);
-	} else if (won == -1){
+
+	status = level1.frame_loop2(renderer);
+	if (status == 1){
+		//Proceed to Final Level
+	} else if (status == -1){
 		lose.frame_loop_lose(renderer);
 	} else {
 		exit(0);
 	}
-	*/
+
+	status = final.frame_loop2(renderer);
+
+	if (status == 1){
+		win.frame_loop_win(renderer);
+	} else if (status == -1){
+		lose.frame_loop_lose(renderer);
+	} else {
+		exit(0);
+	}
+
 
 	return 0;
 }
