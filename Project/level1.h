@@ -86,12 +86,12 @@ Box box5(575,605,640,670,255,0,0,255,783,532,30,30,-1,true,"bleh",sprite);
 Box box6(705,735,640,670,255,0,0,255,783,532,30,30,-1,true,"bleh",sprite);
 
 //hit over box when hit
-Box overbox1(0,125,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
-Box overbox2(130,250,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
-Box overbox3(255,375,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
-Box overbox4(380,520,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
-Box overbox5(525,645,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
-Box overbox6(650,800,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",sprite);
+Box overbox1(0,125,630,640,0,0,255,255,20,651,63,6,-1, true, "sprites.bmp",sprite);
+Box overbox2(130,250,630,640,0,0,255,255,20,651,63,6,-1, true, "sprites.bmp",sprite);
+Box overbox3(255,375,630,640,0,0,255,255,20,651,63,6,-1, true, "sprites.bmp",sprite);
+Box overbox4(380,520,630,640,0,0,255,255,20,651,63,6,-1, true, "sprites.bmp",sprite);
+Box overbox5(525,645,630,640,0,0,255,255,20,651,63,6,-1, true, "sprites.bmp",sprite);
+Box overbox6(650,800,630,640,0,0,255,255,20,651,63,6,-1, true, "sprites.bmp",sprite);
 
 //SDL_SetColorKey(surface,SDL_TRUE,0);
 
@@ -112,7 +112,7 @@ public:
 		key_a = true;
 		key_d = false;
 		first = true;
-		lose_disable = true;
+		lose_disable = false;
 		changer_r = true;
 		ichange_r = 0;
 		changer_l = true;
@@ -267,7 +267,7 @@ private:
 
 		} else if (key == SDLK_n){
 			lose_disable = true;
-		} else if (key == SDLK_w){
+		} else if (key == SDLK_UP){
 			key_w = true;
 		} else if (key == SDLK_k){
 			cheatwin = true;
@@ -400,7 +400,7 @@ private:
 
 
 
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(renderer, 0, 255, 247, 255);
 		SDL_RenderClear(renderer);
 
 		ball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
@@ -430,8 +430,10 @@ private:
 			stringRGBA(renderer,10,25,"3",255,255,255,255);
 		} else if (lives == 2){
 			stringRGBA(renderer,10,25,"2",255,255,255,255);
-		} else {
+		} else if (lives == 1){
 			stringRGBA(renderer,10,25,"1",255,255,255,255);
+		} else {
+			stringRGBA(renderer,10,25,"0",255,255,255,255);
 		}
 
 

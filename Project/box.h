@@ -61,8 +61,11 @@ public:
 	void draw(SDL_Renderer* renderer){
 		if (hits != hits_to_destroy){
 			//boxRGBA(renderer_in, x1-1, y1-1,x2+1,y2+1,0,0,0,255); //border
-			boxRGBA(renderer, x1,y1,x2,y2,r,g,b,a);
+			//boxRGBA(renderer, x1,y1,x2,y2,r,g,b,a);
 			if (textured){
+				//surface->format->Amask = 0xFF000000;
+				//surface->format->Ashift = 32;
+				//SDL_SetColorKey(surface,SDL_TRUE,SDL_MapRGB(surface->format,0,255,247));
 				SDL_Rect clip;
 				clip.x = clip_x;
 				clip.y = clip_y;

@@ -57,7 +57,7 @@ Box fbrick27(660,710,400,425,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",f
 Box fbrick28(715,800,400,425,370,173,78,255,452,554,16,6,3, true, "sprite.bmp",fsprite);
 
 //pear
-Box pear0(320,460,286,316,370,173,78,255,603,353,115,22,5, true, "sprite.bmp",fsprite);
+Box pear0(325,465,285,316,370,173,78,255,603,353,115,22,5, true, "sprite.bmp",fsprite);
 Box pear1(305,485,255,285,370,173,78,255,583,316,151,25,5, true, "sprite.bmp",fsprite);
 Box pear2(290,490,225,255,370,173,78,255,573,263,168,34,5, true, "sprite.bmp",fsprite);
 Box pear3(290,490,195,225,370,173,78,255,573,213,171,29,5, true, "sprite.bmp",fsprite);
@@ -98,12 +98,12 @@ Box fbox5(575,605,640,670,255,0,0,255,783,532,30,30,-1,true,"bleh",fsprite);
 Box fbox6(705,735,640,670,255,0,0,255,783,532,30,30,-1,true,"bleh",fsprite);
 
 //hit over box when hit
-Box foverbox1(0,125,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
-Box foverbox2(130,250,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
-Box foverbox3(255,375,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
-Box foverbox4(380,520,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
-Box foverbox5(525,645,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
-Box foverbox6(650,800,630,640,0,0,255,255,0,120,63,8,-1, true, "sprites.bmp",fsprite);
+Box foverbox1(0,125,630,640,0,0,255,0,20,651,63,6,-1, true, "sprites.bmp",fsprite);
+Box foverbox2(130,250,630,640,0,0,0,0,20,651,63,6,-1, true, "sprites.bmp",fsprite);
+Box foverbox3(255,375,630,640,0,0,0,0,20,651,63,6,-1, true, "sprites.bmp",fsprite);
+Box foverbox4(380,520,630,640,0,0,0,0,20,651,63,6,-1, true, "sprites.bmp",fsprite);
+Box foverbox5(525,645,630,640,0,0,0,0,20,651,63,6,-1, true, "sprites.bmp",fsprite);
+Box foverbox6(650,800,630,640,0,0,0,0,20,651,63,6,-1, true, "sprites.bmp",fsprite);
 
 //SDL_SetColorKey(surface,SDL_TRUE,0);
 
@@ -284,7 +284,7 @@ private:
 
 		} else if (key == SDLK_n){
 			lose_disable = true;
-		} else if (key == SDLK_w){
+		} else if (key == SDLK_UP){
 			key_w = true;
 		} else if (key == SDLK_k){
 			finalwin = true;
@@ -300,7 +300,7 @@ private:
 	void handle_mouse_up2(int x, int y, int button){
 	}
 	void handle_mouse_moved2(int x, int y){
-		printf("x is %d, y is %d\n", x,y);
+		//printf("x is %d, y is %d\n", x,y);
 	}
 
 	void draw2(SDL_Renderer *renderer, float frame_delta_ms){
@@ -416,7 +416,7 @@ private:
 
 
 
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_SetRenderDrawColor(renderer, 0, 255, 247, 255);
 		SDL_RenderClear(renderer);
 
 		fball.draw(renderer,frame_delta_ms,CANVAS_SIZE_X,CANVAS_SIZE_Y);
@@ -432,7 +432,7 @@ private:
 		for (int k = 0; k < fHitBoxes.size(); k++){
 			fHitBoxes[k]->draw(renderer);
 			if (fOverBoxes_hit[k] > 0){
-				printf("%d\n", fOverBoxes_hit[k]);
+				//printf("%d\n", fOverBoxes_hit[k]);
 				fOverBoxes[k]->draw(renderer);
 				fOverBoxes_hit[k]--;
 			}
@@ -446,8 +446,10 @@ private:
 			stringRGBA(renderer,10,25,"3",255,255,255,255);
 		} else if (lives == 2){
 			stringRGBA(renderer,10,25,"2",255,255,255,255);
-		} else {
+		} else if (lives == 1){
 			stringRGBA(renderer,10,25,"1",255,255,255,255);
+		} else {
+			stringRGBA(renderer,10,25,"0",255,255,255,255);
 		}
 
 

@@ -1,20 +1,31 @@
 README
 
+Objective
+Clear all bricks in the game screen by moving the character in the bottom of the screen.  Hitting a block will produce a platform where the ball can bounce on for about 5 sec. Also the player can make the ball bounce by intersecting with it. 
+
+Balls Remaining Counter on upper left corner. 
+
+Compiling
+Run build_osx.sh
+
+Running
+./project
+
 Keyboard Controls
-A = Move Left
-D = Move Right
-Move Mouse =  choose inital ball direction and secondary ball if chosen
+Left = Move Left
+Right = Move Right
+Up = Jump
 
-Mouse Controls
-Move Mouse = Movement
-A = initial ball direciton left and second ball left if chosen
-D= initial ball direciton right and second ball right if chosen
+Click Mouse or Space Bar to Start Game
 
-Default Direciton = Left
-Default Second Ball Position = Left
+Cheats
+Press K to instantly win
+Press N to never lose (ball just bounces at bottom)
+Press R to rotate ball (easier to test)
+
 
 Sources
 
-sprites.bmp
-The Spriters Resource
-http://www.spriters-resource.com/pc_computer/tronic/sheet/50896/
+Both Sprites files were made by me using images from
+http://www.mariomayhem.com/downloads/sprites/super_mario_bros_3_sprites.php
+Also Mario is Copyright Nintendo

@@ -15,6 +15,7 @@ V00838235
 #include "lose.h"
 #include "win.h"
 #include "final.h"
+#include "finalintro.h"
 
 using namespace std;
 
@@ -41,6 +42,7 @@ int main(){
 	Lose lose;
 	Win win;
 	FinalLevel final;
+	FinalIntro intro;
 	bool quit = false;
 	int status = 0;
 
@@ -55,8 +57,9 @@ int main(){
 		exit(0);
 	}
 
+	if (status != -1){
+	intro.frame_loop_win(renderer);
 	status = final.frame_loop2(renderer);
-
 	if (status == 1){
 		win.frame_loop_win(renderer);
 	} else if (status == -1){
@@ -64,6 +67,8 @@ int main(){
 	} else {
 		exit(0);
 	}
+	}
+
 
 
 	return 0;
